@@ -39,24 +39,31 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
             "getPlatformVersion" -> {
                 result.success("Android ${android.os.Build.VERSION.RELEASE} - OK-")
             }
+
             "initReader" -> {
-                initReader(result,call)
+                initReader(result, call)
             }
+
             "identifyTag" -> {
                 identifyTag(result)
             }
+
             "checkConnected" -> {
                 checkConnected(result)
             }
+
             "checkInitialized" -> {
                 checkInitialized(result)
             }
+
             "checkConnecting" -> {
                 checkConnecting(result)
             }
+
             "disConnect" -> {
                 disConnect(result)
             }
+
             else -> {
                 result.notImplemented()
             }
@@ -79,8 +86,14 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
             //BluetoothLE, BLE,USB
             val portTypeString = args["communicationType"] as String
 
-            Log.d("MicroSensysPlugin ADR interfaceTypeString: ",interfaceTypeString)
-            Log.d("MicroSensysPlugin ADR portTypeString: ",portTypeString)
+            //DEVICE IDENTIFIER
+            val deviceIdentifier = args["deviceIdentifier"] as? String ?: "PEN"
+
+            Log.d(
+                "MicroSensysPlugin",
+                "interfaceType=$interfaceTypeString, " +
+                        "portType=$portTypeString, " +
+                        "deviceIdentifier=$deviceIdentifier"           )
 
             reader = RFIDFunctions(context, HelperFunctions().getPortTypeFromString(portTypeString))
             reader!!.protocolType = ProtocolTypeEnum.Protocol_v4
@@ -90,10 +103,10 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
         } catch (e: MssException) {
             result.error("1", e.toString(), e.toString())
             e.printStackTrace()
-        }catch (e : Exception){
+        } catch (e: Exception) {
             result.error("1", e.toString(), e.toString())
             e.printStackTrace()
-        }finally {
+        } finally {
 
         }
     }
@@ -102,7 +115,7 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
 
     // region identifyReader
     private fun identifyTag(result: Result) {
-        if(reader!=null && reader?.isConnected == true){
+        if (reader != null && reader?.isConnected == true) {
             try {
                 val readerInfo = reader!!.identify()
                 val UID: ByteArray?
