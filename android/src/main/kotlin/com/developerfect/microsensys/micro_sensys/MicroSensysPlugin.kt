@@ -91,13 +91,32 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
 
             Log.d(
                 "MicroSensysPlugin",
-                "interfaceType=$interfaceTypeString, " +
-                        "portType=$portTypeString, " +
-                        "deviceIdentifier=$deviceIdentifier"           )
+                "interfaceType=$interfaceTypeString"
+            )
+
+            Log.d(
+                "MicroSensysPlugin",
+                "portType=$portTypeString"
+            )
+
+            Log.d(
+                "MicroSensysPlugin",
+                "deviceIdentifier=$deviceIdentifier"
+            )
 
             reader = RFIDFunctions(context, HelperFunctions().getPortTypeFromString(portTypeString))
             reader!!.protocolType = ProtocolTypeEnum.Protocol_v4
             reader!!.interfaceType = HelperFunctions().getInterfaceTypeFromString(interfaceTypeString)
+
+            // Bao - Test: Set the port name before initializing the reader
+            // Must happen before initialize()
+            reader!!.setPortName(deviceIdentifier)
+
+            Log.d(
+                "MicroSensysPlugin",
+                "Initializing reader with portName=${reader!!.portName}"
+            )
+
             reader!!.initialize()
             result.success(true)
         } catch (e: MssException) {
