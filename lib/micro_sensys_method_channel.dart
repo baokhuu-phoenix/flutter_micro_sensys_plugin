@@ -60,4 +60,14 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
   Stream<String> iosListenStatus() {
     return eventChannelStatus.receiveBroadcastStream().cast<String>();
   }
+
+  @override
+  Future<bool?> connect(String deviceIdentifier) {
+    return methodChannel.invokeMethod<bool>(
+      'connect',
+      {
+        'deviceIdentifier': deviceIdentifier,
+      },
+    );
+  }
 }
