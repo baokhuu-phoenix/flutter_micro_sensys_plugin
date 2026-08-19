@@ -62,4 +62,8 @@ abstract class MicroSensysPlatform extends PlatformInterface {
   Stream<String> iosListenStatus() {
     throw UnimplementedError('iosListenStatus() has not been implemented.');
   }
+
+  Future<bool?> connect(String deviceIdentifier) {
+    throw UnimplementedError('connect() has not been implemented.');
+  }
 }

@@ -41,4 +41,9 @@ class MicroSensys {
   Stream<String> iosListenStatus() {
     return MicroSensysPlatform.instance.iosListenStatus();
   }
+
+  Future<bool?> connect(String deviceIdentifier) {
+    return MicroSensysPlatform.instance.connect(deviceIdentifier);
+  }
+
 }
