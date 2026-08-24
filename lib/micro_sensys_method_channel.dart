@@ -63,6 +63,13 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
 
   @override
   Future<bool?> connect(String deviceIdentifier) {
+
+    debugPrint(
+      'MethodChannelMicroSensys.connect(): '
+          'deviceIdentifier=[$deviceIdentifier], '
+          'length=${deviceIdentifier.length}',
+    );
+
     return methodChannel.invokeMethod<bool>(
       'connect',
       {
