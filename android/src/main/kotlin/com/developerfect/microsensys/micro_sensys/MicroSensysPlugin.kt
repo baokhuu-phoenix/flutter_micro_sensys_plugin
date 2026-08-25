@@ -44,6 +44,10 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
                 initReader(result, call)
             }
 
+            "connect" -> {
+                connect(result, call)
+            }
+
             "identifyTag" -> {
                 identifyTag(result)
             }
@@ -70,6 +74,83 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
+    @SuppressLint("LongLogTag")
+    private fun connect(result: Result, call: MethodCall) {
+        try {
+            val args = call.arguments as? Map<String, Any>
+
+            val deviceIdentifier =
+                args?.get("deviceIdentifier") as? String
+
+            if (deviceIdentifier.isNullOrEmpty()) {
+                result.error(
+                    "CONNECT_INVALID_IDENTIFIER",
+                    "deviceIdentifier is null or empty",
+                    null
+                )
+                return
+            }
+
+            Log.d(
+                "MicroSensysPlugin",
+                "connect(): deviceIdentifier=$deviceIdentifier"
+            )
+
+            reader = RFIDFunctions(
+                context,
+                HelperFunctions().getPortTypeFromString("BLE")
+            )
+
+            reader!!.protocolType =
+                ProtocolTypeEnum.Protocol_v4
+
+            reader!!.interfaceType =
+                HelperFunctions().getInterfaceTypeFromString("UHF")
+
+            reader!!.setPortName(deviceIdentifier)
+
+            Log.d(
+                "MicroSensysPlugin",
+                "connect(): portName=${reader!!.portName}"
+            )
+
+            reader!!.initialize()
+
+            Log.d(
+                "MicroSensysPlugin",
+                "connect(): initialize() completed"
+            )
+
+            result.success(true)
+
+        } catch (e: MssException) {
+            Log.e(
+                "MicroSensysPlugin",
+                "connect(): MssException",
+                e
+            )
+
+            result.error(
+                "CONNECT_ERROR",
+                e.toString(),
+                e.toString()
+            )
+
+        } catch (e: Exception) {
+            Log.e(
+                "MicroSensysPlugin",
+                "connect(): Exception",
+                e
+            )
+
+            result.error(
+                "CONNECT_ERROR",
+                e.toString(),
+                e.toString()
+            )
+        }
+    }
+
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
@@ -87,7 +168,17 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
             val portTypeString = args["communicationType"] as String
 
             //DEVICE IDENTIFIER
-            val deviceIdentifier = args["deviceIdentifier"] as? String ?: "PEN"
+            val deviceIdentifier =
+                args["deviceIdentifier"] as? String
+
+            if (deviceIdentifier.isNullOrEmpty()) {
+                result.error(
+                    "INVALID_DEVICE_IDENTIFIER",
+                    "deviceIdentifier is required",
+                    null
+                )
+                return
+            }
 
             Log.d(
                 "MicroSensysPlugin",
