@@ -224,22 +224,83 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
     // endregion RFID Functions
 
     // region identifyReader
+    @SuppressLint("LongLogTag")
     private fun identifyTag(result: Result) {
-        if (reader != null && reader?.isConnected == true) {
-            try {
-                val readerInfo = reader!!.identify()
-                val UID: ByteArray?
-                UID = reader!!.identify()
-                result.success(HelperFunctions().bytesToHexStr(UID!!))
-            } catch (e: MssException) {
-                e.printStackTrace()
-                result.error("2", "identify", e.localizedMessage)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                result.error("2", "identify", e.localizedMessage)
-            }
+        if (reader == null) {
+            result.error(
+                "IDENTIFY_READER_NULL",
+                "Reader is not initialized",
+                null
+            )
+            return
         }
 
+        if (reader?.isConnected != true) {
+            result.error(
+                "IDENTIFY_NOT_CONNECTED",
+                "Reader is not connected",
+                null
+            )
+            return
+        }
+
+        try {
+            Log.d(
+                "MicroSensysPlugin",
+                "identifyTag(): calling reader.identify()"
+            )
+
+            val uid = reader!!.identify()
+
+            Log.d(
+                "MicroSensysPlugin",
+                "identifyTag(): identify() returned ${uid?.size ?: 0} bytes"
+            )
+
+            if (uid == null) {
+                result.error(
+                    "IDENTIFY_EMPTY",
+                    "identify() returned null",
+                    null
+                )
+                return
+            }
+
+            val uidHex = HelperFunctions().bytesToHexStr(uid)
+
+            Log.d(
+                "MicroSensysPlugin",
+                "identifyTag(): UID/EPC=$uidHex"
+            )
+
+            result.success(uidHex)
+
+        } catch (e: MssException) {
+            Log.e(
+                "MicroSensysPlugin",
+                "identifyTag(): MssException: ${e}",
+                e
+            )
+
+            result.error(
+                "IDENTIFY_ERROR",
+                e.toString(),
+                e.toString()
+            )
+
+        } catch (e: Exception) {
+            Log.e(
+                "MicroSensysPlugin",
+                "identifyTag(): Exception: ${e}",
+                e
+            )
+
+            result.error(
+                "IDENTIFY_ERROR",
+                e.toString(),
+                e.toString()
+            )
+        }
     }
     // endregion identifyReader
 
