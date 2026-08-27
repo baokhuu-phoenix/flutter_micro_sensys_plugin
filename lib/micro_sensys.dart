@@ -43,6 +43,12 @@ class MicroSensys {
   }
 
   Future<bool?> connect(String deviceIdentifier) {
+
+    print(
+      '### MicroSensys.connect() CALLED '
+          'deviceIdentifier=[$deviceIdentifier] ###',
+    );
+
     return MicroSensysPlatform.instance.connect(deviceIdentifier);
   }
 
