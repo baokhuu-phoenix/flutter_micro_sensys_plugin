@@ -223,10 +223,6 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
                 "identifyTag(): RFID HEX=[$rfid]"
             )
 
-            Log.d(
-                "MicroSensysPlugin",
-                "identifyTag(): RFID length=${rfid.length}"
-            )
 
             // Send RFID back to Flutter
             result.success(rfid)
@@ -236,7 +232,7 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
                 "========== identifyTag() END =========="
             )
 
-        } } catch (e: MssException) {
+        }  catch (e: MssException) {
 
         Log.e(
             "MicroSensysPlugin",
