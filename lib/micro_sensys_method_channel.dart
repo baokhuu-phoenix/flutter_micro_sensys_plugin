@@ -20,6 +20,7 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
     return version;
   }
 
+  @override
   Future<bool?> initReader({String? frequencyType, String? communicationType}) {
     var params = {
       'frequencyType': frequencyType ?? 'UHF',
@@ -28,36 +29,61 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
     return methodChannel.invokeMethod<bool>('initReader', params);
   }
 
+  @override
   Future<bool?> initIOSReader({required String deviceName}) {
     return methodChannel
         .invokeMethod<bool>('initIOSReader', {'deviceName': deviceName});
   }
 
+  @override
   Future<String?> identifyTag() {
     return methodChannel.invokeMethod<String?>('identifyTag');
   }
 
+  @override
   Future<bool?> checkConnected() {
     return methodChannel.invokeMethod<bool>('checkConnected');
   }
 
+  @override
   Future<bool?> checkInitialized() {
     return methodChannel.invokeMethod<bool>('checkInitialized');
   }
 
+  @override
   Future<bool?> checkConnecting() {
     return methodChannel.invokeMethod<bool>('checkConnecting');
   }
 
+  @override
   Future<void> disConnect() {
     return methodChannel.invokeMethod<void>('disConnect');
   }
 
+  @override
   Stream<String> listenTags() {
     return eventChannel.receiveBroadcastStream().cast<String>();
   }
 
+  @override
   Stream<String> iosListenStatus() {
     return eventChannelStatus.receiveBroadcastStream().cast<String>();
+  }
+
+  @override
+  Future<bool?> connect(String deviceIdentifier) {
+
+    debugPrint(
+      'MethodChannelMicroSensys.connect(): '
+          'deviceIdentifier=[$deviceIdentifier], '
+          'length=${deviceIdentifier.length}',
+    );
+
+    return methodChannel.invokeMethod<bool>(
+      'connect',
+      {
+        'deviceIdentifier': deviceIdentifier,
+      },
+    );
   }
 }

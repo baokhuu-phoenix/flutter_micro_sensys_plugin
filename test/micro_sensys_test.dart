@@ -63,6 +63,12 @@ class MockMicroSensysPlatform
     // TODO: implement listenTags
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool?> connect(String deviceIdentifier) {
+    // TODO: implement connect
+    throw UnimplementedError();
+  }
 }
 
 void main() {

@@ -117,7 +117,7 @@ class _MyAppState extends State<MyApp> {
                 child: const Text('Identify')),
             ElevatedButton(
                 onPressed: () {
-                  Timer.periodic(Duration(milliseconds: 200), (timer) {
+                  Timer.periodic(const Duration(milliseconds: 200), (timer) {
                     _microSensysPlugin.identifyTag().then((value) {
                       setState(() {
                         _tagNumber = value.toString();
