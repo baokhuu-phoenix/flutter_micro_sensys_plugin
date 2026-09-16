@@ -47,6 +47,10 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
                 initReader(result, call)
             }
 
+            "connect" -> {
+                connect(result, call)
+            }
+
             "identifyTag" -> {
                 identifyTag(result)
             }
@@ -76,6 +80,84 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
     override fun onDetachedFromEngine(
         binding: FlutterPlugin.FlutterPluginBinding
     ) {
+    @SuppressLint("LongLogTag")
+    private fun connect(result: Result, call: MethodCall) {
+        try {
+            val args = call.arguments as? Map<String, Any>
+
+            val deviceIdentifier =
+                args?.get("deviceIdentifier") as? String
+
+            if (deviceIdentifier.isNullOrEmpty()) {
+                result.error(
+                    "CONNECT_INVALID_IDENTIFIER",
+                    "deviceIdentifier is null or empty",
+                    null
+                )
+                return
+            }
+
+            Log.d(
+                "MicroSensysPlugin",
+                "connect(): deviceIdentifier=$deviceIdentifier"
+            )
+
+            reader = RFIDFunctions(
+                context,
+                HelperFunctions().getPortTypeFromString("BLE")
+            )
+
+            reader!!.protocolType =
+                ProtocolTypeEnum.Protocol_v4
+
+            reader!!.interfaceType =
+                HelperFunctions().getInterfaceTypeFromString("UHF")
+
+            reader!!.setPortName(deviceIdentifier)
+
+            Log.d(
+                "MicroSensysPlugin",
+                "connect(): portName=${reader!!.portName}"
+            )
+
+            reader!!.initialize()
+
+            Log.d(
+                "MicroSensysPlugin",
+                "connect(): initialize() completed"
+            )
+
+            result.success(true)
+
+        } catch (e: MssException) {
+            Log.e(
+                "MicroSensysPlugin",
+                "connect(): MssException",
+                e
+            )
+
+            result.error(
+                "CONNECT_ERROR",
+                e.toString(),
+                e.toString()
+            )
+
+        } catch (e: Exception) {
+            Log.e(
+                "MicroSensysPlugin",
+                "connect(): Exception",
+                e
+            )
+
+            result.error(
+                "CONNECT_ERROR",
+                e.toString(),
+                e.toString()
+            )
+        }
+    }
+
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
 
@@ -102,6 +184,15 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
             // DEVICE IDENTIFIER
             val deviceIdentifier =
                 args["deviceIdentifier"] as? String ?: "PEN"
+
+            if (deviceIdentifier.isNullOrEmpty()) {
+                result.error(
+                    "INVALID_DEVICE_IDENTIFIER",
+                    "deviceIdentifier is required",
+                    null
+                )
+                return
+            }
 
             Log.d(
                 "MicroSensysPlugin",
@@ -181,6 +272,14 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
 
     @SuppressLint("LongLogTag")
     private fun identifyTag(result: Result) {
+        if (reader == null) {
+            result.error(
+                "IDENTIFY_READER_NULL",
+                "Reader is not initialized",
+                null
+            )
+            return
+        }
 
         Log.d(
             "MicroSensysPlugin",
@@ -209,6 +308,14 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
                 return
             }
 
+        if (reader?.isConnected != true) {
+            result.error(
+                "IDENTIFY_NOT_CONNECTED",
+                "Reader is not connected",
+                null
+            )
+            return
+        }
             // -----------------------------------------------------------------
             // Check connection
             // -----------------------------------------------------------------
@@ -237,6 +344,7 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
                 return
             }
 
+        try {
             // -----------------------------------------------------------------
             // Identify
             // -----------------------------------------------------------------
@@ -245,15 +353,16 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
             // Call identify() ONLY ONCE.
             Log.d(
                 "MicroSensysPlugin",
-                "identifyTag(): Calling reader.identify()..."
+                "identifyTag(): calling reader.identify()"
             )
 
+            val uid = reader!!.identify()
             val uid: ByteArray? =
                 reader!!.identify()
 
             Log.d(
                 "MicroSensysPlugin",
-                "identifyTag(): identify() returned"
+                "identifyTag(): identify() returned ${uid?.size ?: 0} bytes"
             )
 
             // -----------------------------------------------------------------
@@ -268,14 +377,15 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
                 )
 
                 result.error(
-                    "IDENTIFY_ERROR",
-                    "RFID identify returned null",
+                    "IDENTIFY_EMPTY",
+                    "identify() returned null",
                     null
                 )
 
                 return
             }
 
+            val uidHex = HelperFunctions().bytesToHexStr(uid)
             // -----------------------------------------------------------------
             // Log raw bytes
             // -----------------------------------------------------------------
@@ -304,9 +414,11 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
 
             Log.d(
                 "MicroSensysPlugin",
+                "identifyTag(): UID/EPC=$uidHex"
                 "identifyTag(): RFID length=${rfid?.length}"
             )
 
+            result.success(uidHex)
             // -----------------------------------------------------------------
             // Send RFID back to Flutter
             // -----------------------------------------------------------------
@@ -318,6 +430,12 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
                 "========== identifyTag() END =========="
             )
 
+        } catch (e: MssException) {
+            Log.e(
+                "MicroSensysPlugin",
+                "identifyTag(): MssException: ${e}",
+                e
+            )
         } catch (e: MssException) {
 
             Log.e(
@@ -344,10 +462,21 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
 
             result.error(
                 "IDENTIFY_ERROR",
+                e.toString(),
+                e.toString()
+            )
+            result.error(
+                "IDENTIFY_ERROR",
                 e.message ?: e.toString(),
                 e.toString()
             )
 
+        } catch (e: Exception) {
+            Log.e(
+                "MicroSensysPlugin",
+                "identifyTag(): Exception: ${e}",
+                e
+            )
         } catch (e: Exception) {
 
             Log.e(
@@ -374,6 +503,12 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
 
             result.error(
                 "IDENTIFY_ERROR",
+                e.toString(),
+                e.toString()
+            )
+        }
+            result.error(
+                "IDENTIFY_ERROR",
                 e.message ?: e.toString(),
                 e.toString()
             )
@@ -385,20 +520,19 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
     // =========================================================================
 
     private fun checkConnected(result: Result) {
-
         if (reader?.isConnected == true) {
             result.success(true)
         } else {
             result.success(false)
         }
     }
+    // endregion checkConnected
 
     // =========================================================================
     // checkInitialized
     // =========================================================================
 
     private fun checkInitialized(result: Result) {
-
         if (reader != null) {
             result.success(true)
         } else {
@@ -410,8 +544,8 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
     // checkConnecting
     // =========================================================================
 
+    // region checkInitialized
     private fun checkConnecting(result: Result) {
-
         if (reader?.isConnecting == true) {
             result.success(true)
         } else {
@@ -424,44 +558,8 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
     // =========================================================================
 
     private fun disConnect(result: Result) {
-
-        if (reader?.isConnected == true) {
-
-            try {
-
-                reader?.terminate()
-
-                result.success(true)
-
-            } catch (e: MssException) {
-
-                Log.e(
-                    "MicroSensysPlugin",
-                    "disConnect(): MssException",
-                    e
-                )
-
-                result.error(
-                    "DISCONNECT_ERROR",
-                    e.message ?: e.toString(),
-                    e.toString()
-                )
-
-            } catch (e: Exception) {
-
-                Log.e(
-                    "MicroSensysPlugin",
-                    "disConnect(): Exception",
-                    e
-                )
-
-                result.error(
-                    "DISCONNECT_ERROR",
-                    e.message ?: e.toString(),
-                    e.toString()
-                )
-            }
-
+        if (reader != null && reader?.isConnected == true) {
+            reader?.terminate();
         } else {
 
             Log.d(
