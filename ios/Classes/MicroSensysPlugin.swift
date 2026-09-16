@@ -339,11 +339,11 @@ case "checkInitialized":
     // MicroSensys callbacks
     // =========================================================================
 
-    public func ShowConnectedDeviceInformation(
+public func ShowConnectedDeviceInformation(
     info: [String : String]
 ) {
     debugPrint(
-        "========== MICRO SENSYS CONNECTED =========="
+        "========== MICRO SENSYS CONNECTED INFO =========="
     )
 
     debugPrint(
@@ -351,17 +351,8 @@ case "checkInitialized":
     )
 
     debugPrint(
-        "============================================="
+        "=================================================="
     )
-
-    isConnecting = false
-    isConnected = true
-
-    DispatchQueue.main.async {
-        self.statusStreamHandler?.eventSink?(
-            "CONNECTED"
-        )
-    }
 }
 
     public func ShowDeviceBatteryStatus(
@@ -373,31 +364,23 @@ case "checkInitialized":
         )
     }
 
-public func ShowStatusMessage(
-    status: String
-) {
-    debugPrint("==============================================")
-    debugPrint("MICRO SENSYS STATUS CALLBACK")
-    debugPrint("STATUS: [\(status)]")
-    debugPrint("isConnecting BEFORE: \(isConnecting)")
-    debugPrint("isConnected BEFORE: \(isConnected)")
-    debugPrint("==============================================")
+public func ShowStatusMessage(status: String) {
+    let timestamp = ISO8601DateFormatter().string(from: Date())
 
-    let normalizedStatus = status.lowercased()
-
-    if normalizedStatus.contains("disconnect") {
-        isConnected = false
-        isConnecting = false
-
-        debugPrint(
-            "MicroSensysPlugin: DISCONNECTED -> resetting state"
-        )
-    }
+    print("""
+    ====================================================
+    MICRO SENSYS STATUS
+    time          = \(timestamp)
+    status        = [\(status)]
+    device        = \(currentDeviceName ?? "nil")
+    isInitialized = \(isInitialized)
+    isConnecting  = \(isConnecting)
+    isConnected   = \(isConnected)
+    ====================================================
+    """)
 
     DispatchQueue.main.async {
-        self.statusStreamHandler?.eventSink?(
-            status
-        )
+        self.statusStreamHandler?.eventSink?(status)
     }
 }
 
@@ -449,13 +432,27 @@ public func ShowListPairedDevices(devices: [[String: String]]) {
     print("=================================================")
 }
 
-public func ShowDeviceConnectionStatus(connected: Bool) {
-    print("========== MicroSensys CONNECTION STATUS ==========")
+    public func ShowDeviceConnectionStatus(
+    connected: Bool
+) {
+    print("========== MICRO SENSYS CONNECTION STATUS ==========")
     print("Connected: \(connected)")
+    print("isConnecting BEFORE: \(isConnecting)")
+    print("isConnected BEFORE: \(isConnected)")
     print("====================================================")
 
     isConnected = connected
-    isConnecting = !connected
+    isConnecting = false
+
+    let status = connected
+        ? "CONNECTED"
+        : "DISCONNECTED"
+
+    print("Status AFTER: \(status)")
+
+    DispatchQueue.main.async {
+        self.statusStreamHandler?.eventSink?(status)
+    }
 }
 
 }

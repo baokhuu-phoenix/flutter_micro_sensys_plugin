@@ -72,7 +72,6 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
 
   @override
   Future<bool?> connect(String deviceIdentifier) {
-
     debugPrint(
       'MethodChannelMicroSensys.connect(): '
           'deviceIdentifier=[$deviceIdentifier], '
@@ -86,4 +85,10 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
       },
     );
   }
+
+  @override
+  Future<void> getIOSPairedDevices() {
+    return methodChannel.invokeMethod<void>('getIOSPairedDevices');
+  }
+  
 }

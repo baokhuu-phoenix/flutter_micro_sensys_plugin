@@ -66,4 +66,17 @@ abstract class MicroSensysPlatform extends PlatformInterface {
   Future<bool?> connect(String deviceIdentifier) {
     throw UnimplementedError('connect() has not been implemented.');
   }
+
+  Future<void> scanIOSDevices() {
+    throw UnimplementedError(
+      'scanIOSDevices() has not been implemented.',
+    );
+  }
+
+  Future<void> getIOSPairedDevices() {
+    throw UnimplementedError(
+      'getIOSPairedDevices() has not been implemented.',
+    );
+  }
+
 }

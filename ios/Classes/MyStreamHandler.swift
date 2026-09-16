@@ -1,3 +1,5 @@
+import Flutter
+
 public class MyStreamHandler: NSObject, FlutterStreamHandler {
 
     var eventSink: FlutterEventSink?
