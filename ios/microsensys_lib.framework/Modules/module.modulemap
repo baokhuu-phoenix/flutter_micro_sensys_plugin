@@ -7,5 +7,4 @@ framework module microsensys_lib {
 
 module microsensys_lib.Swift {
   header "microsensys_lib-Swift.h"
-  requires objc
 }
