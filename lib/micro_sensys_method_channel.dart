@@ -10,8 +10,12 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
   final methodChannel = const MethodChannel('micro_sensys');
 
   final EventChannel eventChannel = const EventChannel('micro_sensys_events');
+
   final EventChannel eventChannelStatus =
       const EventChannel('micro_sensys_events_status');
+
+  final EventChannel eventChannelIOSDevices =
+      const EventChannel('micro_sensys_events_ios_devices');
 
   @override
   Future<String?> getPlatformVersion() async {
@@ -89,6 +93,20 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
   @override
   Future<void> getIOSPairedDevices() {
     return methodChannel.invokeMethod<void>('getIOSPairedDevices');
+  }
+
+
+
+  @override
+  Future<void> scanIOSDevices() {
+    return methodChannel.invokeMethod<void>('scanIOSDevices');
+  }
+
+  @override
+  Stream<String> iosListenDevices() {
+    return eventChannelIOSDevices
+        .receiveBroadcastStream()
+        .cast<String>();
   }
   
 }

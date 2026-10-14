@@ -24,6 +24,7 @@ public class MicroSensysPlugin: NSObject,
 
     var streamHandler: MyStreamHandler?
     var statusStreamHandler: MyStreamHandler?
+    var iosDevicesStreamHandler: MyStreamHandler?
 
     // =========================================================================
     // Diagnostic logging
@@ -94,6 +95,18 @@ public class MicroSensysPlugin: NSObject,
             instance.statusStreamHandler
         )
 
+        // iOS discovered devices
+        instance.iosDevicesStreamHandler = MyStreamHandler()
+
+        let eventChannelIOSDevices = FlutterEventChannel(
+            name: "micro_sensys_events_ios_devices",
+            binaryMessenger: registrar.messenger()
+        )
+
+        eventChannelIOSDevices.setStreamHandler(
+            instance.iosDevicesStreamHandler
+        )
+
         debugPrint("🔍 [REGISTER] MicroSensysPlugin.register() COMPLETE")
     }
 
@@ -120,18 +133,47 @@ public class MicroSensysPlugin: NSObject,
                 result: result
             )
 
-        case "scanIOSDevices":
-            logEvent("scanIOSDevices -> StartDeviceScan")
 
+        case "scanIOSDevices":
+
+            logEvent("scanIOSDevices -> initializing SDK callbacks")
+            initializeSDKCallbacks()
+
+            logEvent("scanIOSDevices -> GetPairedDevices")
+            BleRfidLib.shared.GetPairedDevices()
+
+            logEvent("scanIOSDevices -> StartDeviceScan")
             BleRfidLib.shared.StartDeviceScan(
                 scanDevice: .PenSolidPRO
             )
 
+            logEvent("scanIOSDevices -> StartDeviceScan RETURNED")
             result(nil)
 
-        case "getIOSPairedDevices":
-            logEvent("getIOSPairedDevices -> GetPairedDevices")
+        case "connect":
 
+            guard let arguments = call.arguments as? [String: Any],
+                  let deviceIdentifier = arguments["deviceIdentifier"] as? String,
+                  !deviceIdentifier.isEmpty else {
+
+                logEvent(
+                    "connect ERROR - deviceIdentifier missing"
+                )
+
+                result(false)
+                return
+            }
+
+            connectDevice(
+                deviceName: deviceIdentifier,
+                result: result
+            )
+
+        case "getIOSPairedDevices":
+            logEvent("getIOSPairedDevices -> initializing SDK callbacks")
+            initializeSDKCallbacks()
+
+            logEvent("getIOSPairedDevices -> GetPairedDevices")
             BleRfidLib.shared.GetPairedDevices()
 
             result(nil)
@@ -197,6 +239,134 @@ public class MicroSensysPlugin: NSObject,
         }
     }
 
+
+    private func initializeSDKCallbacks() {
+
+        if isInitialized {
+            logEvent("SDK callbacks already initialized")
+            return
+        }
+
+        logEvent("========== INITIALIZING SDK CALLBACKS ==========")
+
+        BleRfidLib.shared.InitShowListFoundDevicesCallback(
+            delegate: self
+        )
+
+        BleRfidLib.shared.InitShowListPairedDevicesCallback(
+            delegate: self
+        )
+
+        BleRfidLib.shared.InitShowDeviceConnectionStatusCallback(
+            delegate: self
+        )
+
+        BleRfidLib.shared.InitShowConnectedDeviceInformationCallback(
+            delegate: self
+        )
+
+        BleRfidLib.shared.InitShowDeviceBatteryStatusCallback(
+            delegate: self
+        )
+
+        BleRfidLib.shared.InitShowStatusMessageCallback(
+            delegate: self
+        )
+
+        BleRfidLib.shared.InitShowResponseMessageCallback(
+            delegate: self
+        )
+
+        isInitialized = true
+
+        logState("SDK CALLBACKS INITIALIZED")
+    }
+
+
+    private func connectDevice(
+        deviceName: String,
+        result: @escaping FlutterResult
+    ) {
+        logEvent("========== connectDevice ENTER ==========")
+
+        logEvent(
+            "connectDevice -> deviceName=[\(deviceName)]"
+        )
+
+        currentDeviceName = deviceName
+
+        logState("connectDevice ENTER")
+
+        // Already connected
+        if isConnected {
+            logEvent(
+                "connectDevice -> ALREADY CONNECTED"
+            )
+
+            result(true)
+            return
+        }
+
+        // Connection already in progress
+        if isConnecting {
+            logEvent(
+                "connectDevice -> CONNECTION ALREADY IN PROGRESS"
+            )
+
+            result(false)
+            return
+        }
+
+        // Make sure SDK callbacks are registered.
+        initializeSDKCallbacks()
+
+        // Stop device scanning before attempting to connect.
+        logEvent(
+            "connectDevice -> STOPPING SDK scan before connection"
+        )
+
+        //BleRfidLib.shared.StopDeviceScan()
+
+        // Start connection
+        isConnecting = true
+
+        logState(
+            "connectDevice -> BEFORE ConnectDeviceByName"
+        )
+
+        logEvent(
+            "connectDevice -> CALLING ConnectDeviceByName on MAIN thread"
+        )
+
+        DispatchQueue.global().asyncAfter(
+            deadline: .now() + .milliseconds(50)
+        ) {
+            self.logEvent(
+                "connectDevice -> ConnectDeviceByName CALL"
+            )
+
+            BleRfidLib.shared.ConnectDeviceByName(
+                deviceName: deviceName
+            )
+
+            self.logEvent(
+                "connectDevice -> ConnectDeviceByName RETURNED"
+            )
+
+            self.logState(
+                "connectDevice -> AFTER ConnectDeviceByName"
+            )
+        }
+
+        // The actual connection result comes asynchronously through:
+        // ShowDeviceConnectionStatus(connected:)
+        result(true)
+
+        logEvent(
+            "connectDevice -> result(true) returned to Flutter"
+        )
+    }
+
     // =========================================================================
     // iOS reader initialization
     // =========================================================================
@@ -205,7 +375,6 @@ public class MicroSensysPlugin: NSObject,
         call: FlutterMethodCall,
         result: @escaping FlutterResult
     ) {
-
         logEvent("========== initIosReader ENTER ==========")
 
         guard let arguments = call.arguments as? [String: Any],
@@ -220,228 +389,13 @@ public class MicroSensysPlugin: NSObject,
             return
         }
 
-        debugPrint("==============================================")
-        debugPrint("MicroSensysPlugin: initIOSReader")
-        debugPrint("DeviceName: \(deviceName)")
-        debugPrint("isInitialized: \(isInitialized)")
-        debugPrint("isConnecting: \(isConnecting)")
-        debugPrint("isConnected: \(isConnected)")
-        debugPrint("==============================================")
-
-        logState("initIosReader ENTER")
-
-        currentDeviceName = deviceName
-
         logEvent(
-            "currentDeviceName set to \(deviceName)"
+            "initIosReader -> deviceName=[\(deviceName)]"
         )
 
-        // ---------------------------------------------------------------------
-        // Already connected
-        // ---------------------------------------------------------------------
-
-        if isConnected {
-
-            logEvent(
-                "initIosReader -> ALREADY CONNECTED -> returning true"
-            )
-
-            result(true)
-            return
-        }
-
-        // ---------------------------------------------------------------------
-        // Connection already in progress
-        // ---------------------------------------------------------------------
-
-        if isConnecting {
-
-            logEvent(
-                "initIosReader -> CONNECTION ALREADY IN PROGRESS -> returning false"
-            )
-
-            logState("initIosReader blocked by isConnecting")
-
-            result(false)
-            return
-        }
-
-        // ---------------------------------------------------------------------
-        // Initialize SDK callbacks only once
-        // ---------------------------------------------------------------------
-
-        if !isInitialized {
-
-            logEvent(
-                "initIosReader -> STARTING SDK CALLBACK INITIALIZATION"
-            )
-
-            logEvent(
-                "InitShowListFoundDevicesCallback"
-            )
-
-            BleRfidLib.shared.InitShowListFoundDevicesCallback(
-                delegate: self
-            )
-
-            logEvent(
-                "InitShowListFoundDevicesCallback RETURNED"
-            )
-
-            logEvent(
-                "InitShowListPairedDevicesCallback"
-            )
-
-            BleRfidLib.shared.InitShowListPairedDevicesCallback(
-                delegate: self
-            )
-
-            logEvent(
-                "InitShowListPairedDevicesCallback RETURNED"
-            )
-
-            logEvent(
-                "InitShowDeviceConnectionStatusCallback"
-            )
-
-            BleRfidLib.shared.InitShowDeviceConnectionStatusCallback(
-                delegate: self
-            )
-
-            logEvent(
-                "InitShowDeviceConnectionStatusCallback RETURNED"
-            )
-
-            logEvent(
-                "InitShowConnectedDeviceInformationCallback"
-            )
-
-            BleRfidLib.shared
-            .InitShowConnectedDeviceInformationCallback(
-                delegate: self
-            )
-
-            logEvent(
-                "InitShowConnectedDeviceInformationCallback RETURNED"
-            )
-
-            logEvent(
-                "InitShowDeviceBatteryStatusCallback"
-            )
-
-            BleRfidLib.shared
-            .InitShowDeviceBatteryStatusCallback(
-                delegate: self
-            )
-
-            logEvent(
-                "InitShowDeviceBatteryStatusCallback RETURNED"
-            )
-
-            logEvent(
-                "InitShowStatusMessageCallback"
-            )
-
-            BleRfidLib.shared
-            .InitShowStatusMessageCallback(
-                delegate: self
-            )
-
-            logEvent(
-                "InitShowStatusMessageCallback RETURNED"
-            )
-
-            logEvent(
-                "InitShowResponseMessageCallback"
-            )
-
-            BleRfidLib.shared
-            .InitShowResponseMessageCallback(
-                delegate: self
-            )
-
-            logEvent(
-                "InitShowResponseMessageCallback RETURNED"
-            )
-
-            isInitialized = true
-
-            logState(
-                "SDK CALLBACKS INITIALIZED"
-            )
-
-        } else {
-
-            logEvent(
-                "initIosReader -> SDK callbacks already initialized"
-            )
-        }
-
-        // ---------------------------------------------------------------------
-        // Start connection
-        // ---------------------------------------------------------------------
-
-        logEvent(
-            "initIosReader -> setting isConnecting = true"
-        )
-
-        isConnecting = true
-
-        logState(
-            "AFTER setting isConnecting = true"
-        )
-
-        debugPrint(
-            "MicroSensysPlugin: CONNECT START -> \(deviceName)"
-        )
-
-        // =========================================================================
-        // TEST 1
-        //
-        // Previously ConnectDeviceByName() was called from:
-        //
-        // DispatchQueue.global().asyncAfter(...)
-        //
-        // That meant the SDK connection call happened on a background thread.
-        //
-        // For this test, call ConnectDeviceByName() directly on the main thread.
-        // This lets us determine whether the MicroSensys SDK requires its
-        // connection API to be called from the main thread.
-        // =========================================================================
-
-        logEvent(
-            "TEST 1 -> CALLING ConnectDeviceByName on MAIN thread"
-        )
-
-        logState(
-            "TEST 1 -> BEFORE ConnectDeviceByName"
-        )
-
-        debugPrint(
-            "MicroSensysPlugin: TEST 1 -> CALLING ConnectDeviceByName"
-        )
-
-        BleRfidLib.shared.ConnectDeviceByName(
-            deviceName: deviceName
-        )
-
-        logEvent(
-            "TEST 1 -> ConnectDeviceByName RETURNED"
-        )
-
-        logState(
-            "TEST 1 -> AFTER ConnectDeviceByName"
-        )
-
-        // This means the connect request was started.
-        logEvent(
-            "initIosReader -> returning result(true)"
-        )
-
-        result(true)
-
-        logState(
-            "initIosReader EXIT"
+        connectDevice(
+            deviceName: deviceName,
+            result: result
         )
     }
 
@@ -642,7 +596,7 @@ public class MicroSensysPlugin: NSObject,
         devices: [String]
     ) {
 
-        print("🚨🚨🚨 FOUND DEVICES CALLBACK 🚨🚨🚨")
+        print("🚨 FOUND DEVICES CALLBACK: \(devices)")
         print("COUNT = \(devices.count)")
 
         for (index, device) in devices.enumerated() {
@@ -652,74 +606,61 @@ public class MicroSensysPlugin: NSObject,
         logState(
             "ShowListFoundDevices CALLBACK"
         )
+
+        DispatchQueue.main.async {
+
+            for device in devices {
+
+                self.logEvent(
+                    "ShowListFoundDevices -> sending device to Flutter: \(device)"
+                )
+
+                self.iosDevicesStreamHandler?.eventSink?(
+                    device
+                )
+            }
+        }
     }
 
-    public func ShowListPairedDevices(
-        devices: [[String: String]]
-    ) {
 
+    public func ShowListPairedDevices(devices: [[String: String]]) {
         print("🚨🚨🚨 PAIRED DEVICES CALLBACK 🚨🚨🚨")
         print("COUNT = \(devices.count)")
 
-        for (index, device) in devices.enumerated() {
-            print("[\(index)] = \(device)")
+        DispatchQueue.main.async {
+            for device in devices {
+                print("Paired device: \(device)")
+
+                guard let name = device["device"], !name.isEmpty else {
+                    continue
+                }
+
+                self.logEvent(
+                    "ShowListPairedDevices -> sending device to Flutter: \(name)"
+                )
+
+                self.iosDevicesStreamHandler?.eventSink?(name)
+            }
         }
 
-        logState(
-            "ShowListPairedDevices CALLBACK"
-        )
+        logState("ShowListPairedDevices CALLBACK")
     }
 
-    public func ShowDeviceConnectionStatus(
-        connected: Bool
-    ) {
 
-        print("🚨🚨🚨 CONNECTION STATUS CALLBACK 🚨🚨🚨")
-        print("connected = \(connected)")
-        print("device = \(currentDeviceName ?? "nil")")
-        print("isConnecting BEFORE = \(isConnecting)")
-        print("isConnected BEFORE = \(isConnected)")
-
-        logEvent(
-            "ShowDeviceConnectionStatus CALLBACK ENTER: connected=\(connected)"
-        )
-
-        logState(
-            "ShowDeviceConnectionStatus BEFORE state update"
-        )
-
-        // ---------------------------------------------------------------------
-        // SDK has reported the connection result.
-        // ---------------------------------------------------------------------
+    public func ShowDeviceConnectionStatus(connected: Bool) {
+        logEvent("ShowDeviceConnectionStatus: connected=\(connected)")
 
         isConnected = connected
         isConnecting = false
 
-        let status = connected
-                ? "CONNECTED"
-                : "DISCONNECTED"
-
-        print("STATUS = \(status)")
-        print("isConnecting AFTER = \(isConnecting)")
-        print("isConnected AFTER = \(isConnected)")
-
-        logState(
-            "ShowDeviceConnectionStatus AFTER state update"
-        )
-
-        DispatchQueue.main.async {
-
-            self.logEvent(
-                "ShowDeviceConnectionStatus -> sending Flutter event: \(status)"
-            )
-
-            self.statusStreamHandler?.eventSink?(
-                status
-            )
+        if connected {
+            BleRfidLib.shared.StopDeviceScan()
         }
 
-        logEvent(
-            "ShowDeviceConnectionStatus CALLBACK EXIT"
-        )
+        let status = connected ? "CONNECTED" : "DISCONNECTED"
+
+        DispatchQueue.main.async {
+            self.statusStreamHandler?.eventSink?(status)
+        }
     }
 }

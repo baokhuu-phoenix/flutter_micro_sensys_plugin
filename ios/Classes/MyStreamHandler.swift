@@ -1,3 +1,4 @@
+
 import Flutter
 
 public class MyStreamHandler: NSObject, FlutterStreamHandler {
@@ -8,22 +9,14 @@ public class MyStreamHandler: NSObject, FlutterStreamHandler {
         withArguments arguments: Any?,
         eventSink events: @escaping FlutterEventSink
     ) -> FlutterError? {
-
         self.eventSink = events
-
-        events(
-            "MicroSensysPlugin: Registered"
-        )
-
         return nil
     }
 
     public func onCancel(
         withArguments arguments: Any?
     ) -> FlutterError? {
-
         self.eventSink = nil
-
         return nil
     }
 }
