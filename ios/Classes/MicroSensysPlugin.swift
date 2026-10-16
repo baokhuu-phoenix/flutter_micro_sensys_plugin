@@ -320,10 +320,13 @@ public class MicroSensysPlugin: NSObject,
         // Make sure SDK callbacks are registered.
         initializeSDKCallbacks()
 
+        // TEMPORARY TEST:
+        // Do not stop scanning before ConnectDeviceByName.
+        // Restore the original behavior after this test.
         // Stop device scanning before attempting to connect.
-        logEvent(
-            "connectDevice -> STOPPING SDK scan before connection"
-        )
+        //logEvent(
+        //    "connectDevice -> STOPPING SDK scan before connection"
+        //)
 
         //BleRfidLib.shared.StopDeviceScan()
 
@@ -338,7 +341,7 @@ public class MicroSensysPlugin: NSObject,
             "connectDevice -> CALLING ConnectDeviceByName on MAIN thread"
         )
 
-        DispatchQueue.global().asyncAfter(
+        DispatchQueue.main.asyncAfter(
             deadline: .now() + .milliseconds(50)
         ) {
             self.logEvent(
@@ -511,19 +514,15 @@ public class MicroSensysPlugin: NSObject,
     // =========================================================================
     // MicroSensys callbacks
     // =========================================================================
-
     public func ShowConnectedDeviceInformation(
         info: [String: String]
     ) {
-
-        print("🚨🚨🚨 CONNECTED DEVICE INFO CALLBACK 🚨🚨🚨")
-        print("info = \(info)")
-
-        logState(
-            "ShowConnectedDeviceInformation CALLBACK"
-        )
+        logEvent("SDK DEVICE INFO CALLBACK: \(info)")
     }
 
+    // =========================================================================
+    //
+    // =========================================================================
     public func ShowDeviceBatteryStatus(
         status: String
     ) {
@@ -536,17 +535,12 @@ public class MicroSensysPlugin: NSObject,
         )
     }
 
-    public func ShowStatusMessage(
-        status: String
-    ) {
+    // =========================================================================
+    //
+    // =========================================================================
+    public func ShowStatusMessage(status: String) {
 
-        print("🚨🚨🚨 STATUS MESSAGE CALLBACK 🚨🚨🚨")
-        print("status = [\(status)]")
-        print("device = \(currentDeviceName ?? "nil")")
-
-        logState(
-            "ShowStatusMessage CALLBACK"
-        )
+        logState("CONNECTION STATUS CHANGED")
 
         DispatchQueue.main.async {
             self.logEvent(
@@ -559,12 +553,11 @@ public class MicroSensysPlugin: NSObject,
         }
     }
 
-    public func ShowResponseMessage(
-        data: [String]
-    ) {
+    //=====================
+    //=====================
+    public func ShowResponseMessage(data: [String]) {
 
-        print("🚨🚨🚨 RESPONSE MESSAGE CALLBACK 🚨🚨🚨")
-        print("data = \(data)")
+        logEvent("SDK RESPONSE CALLBACK: \(data)")
 
         logState(
             "ShowResponseMessage CALLBACK"
@@ -656,6 +649,8 @@ public class MicroSensysPlugin: NSObject,
         if connected {
             BleRfidLib.shared.StopDeviceScan()
         }
+
+        logState("CONNECTION CALLBACK AFTER UPDATE")
 
         let status = connected ? "CONNECTED" : "DISCONNECTED"
 
