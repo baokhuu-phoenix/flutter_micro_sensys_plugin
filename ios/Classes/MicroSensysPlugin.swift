@@ -403,40 +403,24 @@ public class MicroSensysPlugin: NSObject,
     }
 
     // =========================================================================
-    // RFID identification
+    // to read the RFID tag
     // =========================================================================
-
-    private func identifyTag(
-        result: @escaping FlutterResult
-    ) {
-
+    private func identifyTag(result: @escaping FlutterResult) {
         logState("identifyTag ENTER")
 
         guard isConnected else {
-
             debugPrint(
                 "MicroSensysPlugin: identifyTag - not connected"
             )
-
             result(nil)
             return
         }
-
-        debugPrint(
-            "MicroSensysPlugin: identifyTag"
-        )
-
-        logEvent(
-            "Identify() CALL"
-        )
 
         BleRfidLib.shared.Identify(
             info: AntennaInfo.Antenna_Info_On
         )
 
-        logEvent(
-            "Identify() RETURNED"
-        )
+        logEvent("Identify() RETURNED")
 
         result(nil)
     }

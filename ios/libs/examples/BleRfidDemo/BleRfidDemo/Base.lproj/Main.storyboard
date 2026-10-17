@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sz6-wr-SIs">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="SDB-KX-srB">
+            <objects>
+                <navigationController id="sz6-wr-SIs" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="FSk-TJ-UnR">
+                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="MssColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="MssColor"/>
+                            <color key="textShadowColor" systemColor="opaqueSeparatorColor"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" name="MssColor"/>
+                            <color key="textShadowColor" systemColor="opaqueSeparatorColor"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="r9i-ux-7kk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DjK-zl-GgX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-793" y="-63"/>
+        </scene>
+        <!--BLE Reader Demo-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="BleRfidDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="gf4-UN-3Zh">
+                                <rect key="frame" x="16" y="812" width="382" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="CO1-oK-QMF"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cbj-TE-qKC">
+                                <rect key="frame" x="20" y="747" width="374" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="mzi-s1-wHq"/>
+                                </constraints>
+                                <color key="tintColor" name="MssColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Identify (with antenna info)">
+                                    <color key="baseBackgroundColor" name="MssColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="identify_withInfo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wFG-Du-tZ4"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="krt-mk-aQe">
+                                <rect key="frame" x="20" y="164" width="374" height="503"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="oGG-dw-DdO" style="IBUITableViewCellStyleDefault" id="VJY-iC-ok6" customClass="PayloadCell" customModule="BleRfidDemo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="374" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VJY-iC-ok6" id="v7e-nw-tUL">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Record" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oGG-dw-DdO">
+                                                    <rect key="frame" x="20" y="0.0" width="334" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="name" destination="oGG-dw-DdO" id="Tj0-P5-74Q"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VkP-aC-4Ru">
+                                <rect key="frame" x="228.5" y="722" width="165.5" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Sri-yr-r7K"/>
+                                </constraints>
+                                <color key="tintColor" name="MssColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Status Battery">
+                                    <color key="baseBackgroundColor" name="MssColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="batteryStatus:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rFj-Ff-lQa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghM-lX-WMd">
+                                <rect key="frame" x="20" y="672" width="165.5" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="S0O-QF-CZ0"/>
+                                </constraints>
+                                <color key="tintColor" name="MssColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Select Antenna 1">
+                                    <color key="baseBackgroundColor" name="MssColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="antenna1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZO1-J3-97P"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zsu-9u-oA8">
+                                <rect key="frame" x="20" y="697" width="165.5" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="EVs-Ia-A3g"/>
+                                </constraints>
+                                <color key="tintColor" name="MssColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Select Antenna 2">
+                                    <color key="baseBackgroundColor" name="MssColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="antenna2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QPK-uv-Sgs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HdY-G1-3gi">
+                                <rect key="frame" x="20" y="722" width="165.5" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="abv-KM-Y60"/>
+                                </constraints>
+                                <color key="tintColor" name="MssColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Select Antenna All">
+                                    <color key="baseBackgroundColor" name="MssColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="antennaAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Veh-bA-b7m"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lol-Kj-8CE">
+                                <rect key="frame" x="228.5" y="697" width="165.5" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="dGz-3P-p6e"/>
+                                </constraints>
+                                <color key="tintColor" name="MssColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Info Reader">
+                                    <color key="baseBackgroundColor" name="MssColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="readerInformation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ur6-AI-1sj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mim-1d-hA4">
+                                <rect key="frame" x="20" y="782" width="374" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="0r7-Zu-YPT"/>
+                                </constraints>
+                                <color key="tintColor" name="MssColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Identify (without antenna info)">
+                                    <color key="baseBackgroundColor" name="MssColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="identify_withoutInfo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WDh-u1-d1k"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="VkP-aC-4Ru" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HdY-G1-3gi" secondAttribute="trailing" constant="8" symbolic="YES" id="3Ct-E6-yTK"/>
+                            <constraint firstItem="krt-mk-aQe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="426-TD-Hd0"/>
+                            <constraint firstItem="Cbj-TE-qKC" firstAttribute="top" secondItem="HdY-G1-3gi" secondAttribute="bottom" constant="5" id="4Kj-70-2XB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Lol-Kj-8CE" secondAttribute="trailing" constant="20" id="54A-5n-LnI"/>
+                            <constraint firstItem="ghM-lX-WMd" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="5xC-i9-Yit"/>
+                            <constraint firstItem="HdY-G1-3gi" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="82s-4w-966"/>
+                            <constraint firstItem="Cbj-TE-qKC" firstAttribute="top" secondItem="VkP-aC-4Ru" secondAttribute="bottom" constant="5" id="8E3-Ih-ofT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Mim-1d-hA4" secondAttribute="trailing" constant="20" id="9u8-jV-Mlq"/>
+                            <constraint firstItem="gf4-UN-3Zh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="AYW-k4-LdS"/>
+                            <constraint firstItem="Cbj-TE-qKC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="E2y-l4-D5A"/>
+                            <constraint firstItem="ghM-lX-WMd" firstAttribute="top" secondItem="krt-mk-aQe" secondAttribute="bottom" constant="5" id="JYm-4q-JPR"/>
+                            <constraint firstItem="Mim-1d-hA4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="LyB-Lv-Orh"/>
+                            <constraint firstItem="Mim-1d-hA4" firstAttribute="top" secondItem="Cbj-TE-qKC" secondAttribute="bottom" constant="10" id="Q9x-MO-tdc"/>
+                            <constraint firstItem="Zsu-9u-oA8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="TS1-xX-6xm"/>
+                            <constraint firstItem="HdY-G1-3gi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Vut-Wk-E9l"/>
+                            <constraint firstItem="Zsu-9u-oA8" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="Wch-AC-YWR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="krt-mk-aQe" secondAttribute="trailing" constant="20" id="Wmm-ev-RE7"/>
+                            <constraint firstItem="gf4-UN-3Zh" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="bFY-Sl-duf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VkP-aC-4Ru" secondAttribute="trailing" constant="20" id="dbx-oc-kW0"/>
+                            <constraint firstItem="VkP-aC-4Ru" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="htN-QA-he8"/>
+                            <constraint firstItem="Lol-Kj-8CE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="iz9-Zf-M0d"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ghM-lX-WMd" secondAttribute="trailing" symbolic="YES" id="j1x-SR-nji"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Cbj-TE-qKC" secondAttribute="trailing" constant="20" id="kzg-LT-oqd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gf4-UN-3Zh" secondAttribute="bottom" id="lxw-8m-c4F"/>
+                            <constraint firstItem="VkP-aC-4Ru" firstAttribute="top" secondItem="Lol-Kj-8CE" secondAttribute="bottom" constant="5" id="ncz-jO-oC5"/>
+                            <constraint firstItem="Zsu-9u-oA8" firstAttribute="top" secondItem="ghM-lX-WMd" secondAttribute="bottom" constant="5" id="oQc-p5-gqc"/>
+                            <constraint firstItem="gf4-UN-3Zh" firstAttribute="top" secondItem="Mim-1d-hA4" secondAttribute="bottom" constant="5" id="q43-4W-K4d"/>
+                            <constraint firstItem="HdY-G1-3gi" firstAttribute="top" secondItem="Zsu-9u-oA8" secondAttribute="bottom" constant="5" id="rqG-XT-vja"/>
+                            <constraint firstItem="krt-mk-aQe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="v6H-ne-HEN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gf4-UN-3Zh" secondAttribute="trailing" constant="16" id="vkk-sq-Jkx"/>
+                            <constraint firstItem="Lol-Kj-8CE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Zsu-9u-oA8" secondAttribute="trailing" constant="8" symbolic="YES" id="wAP-fC-5Ro"/>
+                            <constraint firstItem="ghM-lX-WMd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="zz7-bf-16p"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="BLE Reader Demo" id="cnX-7y-6ZY"/>
+                    <connections>
+                        <outlet property="footerImage" destination="gf4-UN-3Zh" id="a0z-YU-ytV"/>
+                        <outlet property="tableView" destination="krt-mk-aQe" id="f0G-sA-Tgo"/>
+                        <segue destination="KFW-xo-5Xs" kind="show" identifier="seque" id="IID-PV-ECm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="118.84057971014494" y="-64.285714285714278"/>
+        </scene>
+        <!--Reader Connection-->
+        <scene sceneID="1Xq-uC-HBx">
+            <objects>
+                <tableViewController storyboardIdentifier="readerConnect" id="KFW-xo-5Xs" customClass="TableViewController" customModule="BleRfidDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="xdy-s5-Lfj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="NtD-Zm-tbI" detailTextLabel="DCX-Vz-VWZ" style="IBUITableViewCellStyleValue1" id="HOI-is-bK4">
+                                <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HOI-is-bK4" id="LAL-Hn-tb0">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Reader Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NtD-Zm-tbI">
+                                            <rect key="frame" x="20" y="14" width="87.5" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Connection" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DCX-Vz-VWZ">
+                                            <rect key="frame" x="329" y="16" width="65" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="KFW-xo-5Xs" id="bJo-Kd-mRT"/>
+                            <outlet property="delegate" destination="KFW-xo-5Xs" id="F3W-NO-1pE"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Reader Connection" id="tRb-sf-7xG"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ILG-jM-uyf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1077" y="-64"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Logo" width="1553" height="350"/>
+        <namedColor name="MssColor">
+            <color red="0.0" green="0.50588235294117645" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

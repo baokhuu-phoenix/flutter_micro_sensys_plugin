@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - micro_sensys (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - micro_sensys (from `.symlinks/plugins/micro_sensys/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  micro_sensys:
+    :path: ".symlinks/plugins/micro_sensys/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
+  micro_sensys: 7277e6dbcb5325c0a8a5c6ec606501ef164aa3c0
+
+PODFILE CHECKSUM: cec89b927ffdd82cf23b0f91d22190638082ee45
+
+COCOAPODS: 1.16.2
