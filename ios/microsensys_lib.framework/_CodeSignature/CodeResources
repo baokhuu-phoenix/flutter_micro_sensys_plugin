@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/microsensys_lib-Swift.h</key>
 		<data>
-		hRyhMD/yyHmRvywUc9GRJ6MfgnI=
+		rBXhg4MJE7xWJF6JFlX3ZV0ht1k=
 		</data>
 		<key>Headers/microsensys_lib.h</key>
 		<data>
@@ -14,27 +14,27 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		G+30Q3r3ciOcrzOspanvBvL1BnY=
+		SIYjanfE1QuWxOBOFZbpd3A9RXo=
 		</data>
 		<key>Modules/microsensys_lib.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		m/tOxDc5btp81u6D7GKO1rA+H+c=
+		w2UqGXh0bkkej/tdohhBQNPUzoI=
 		</data>
 		<key>Modules/microsensys_lib.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		N5VQ2Nl4AaMo7w56sLxzLXTGnwU=
+		F59fiLGPDPxEjLbVUBeQCTrptDI=
 		</data>
 		<key>Modules/microsensys_lib.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		CvaIeOUrMF98r6+wmz9/con0ojQ=
+		bbh6IU++BUYptnxuH3Qw9Y9ure8=
 		</data>
 		<key>Modules/microsensys_lib.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		N5VQ2Nl4AaMo7w56sLxzLXTGnwU=
+		F59fiLGPDPxEjLbVUBeQCTrptDI=
 		</data>
 		<key>Modules/microsensys_lib.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		A1LXh2ZEOU1nZBmuoYx/g5xNP8I=
+		3gttQwTYMLN0SqSfopcIww1P49o=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -47,7 +47,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YISk0NuX7NLenIg3QZpcchGtBMXcG41Hjuyp86vwmwA=
+			Tb00GeVR2uqJjbLqHvy4gj45bLighxMUJHxomL2kvzk=
 			</data>
 		</dict>
 		<key>Headers/microsensys_lib.h</key>
@@ -61,35 +61,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			NHCLq5XcRAXdUwXq5XmKYa8GEkLC1/Rb9H+5ezn9Wb4=
+			8yhGuOGkTgwUnzvMZehtoNMXTH74SHhyFdiBJrs3LRY=
 			</data>
 		</dict>
 		<key>Modules/microsensys_lib.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5ahPow9MW5KeHdn+iLZFP6J5aK7FPbJ6BBF/mWgMOQQ=
+			0sb/1/M7S40HgDE1oWH2U6T5kTyh4vJxgAJeSq7gmkw=
 			</data>
 		</dict>
 		<key>Modules/microsensys_lib.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			jlfGSNrwB25+xpCsgLX6Iu0b2biDwUHtBW6O78BU9dA=
+			NzPDp8me2+LQs+t4wOC7F99QZrrFT5mMAYb0RTDLm0Y=
 			</data>
 		</dict>
 		<key>Modules/microsensys_lib.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5ahPow9MW5KeHdn+iLZFP6J5aK7FPbJ6BBF/mWgMOQQ=
+			0sb/1/M7S40HgDE1oWH2U6T5kTyh4vJxgAJeSq7gmkw=
 			</data>
 		</dict>
 		<key>Modules/microsensys_lib.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			DfTkBj9pY9rzAArpkUP0oMYE8W7Hm8Jo1tD2GgDNZXw=
+			6WB03ABINZnu2VodzoynH28kpS0XFpO5zyIezuXPJFU=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
