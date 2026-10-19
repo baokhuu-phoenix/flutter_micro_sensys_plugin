@@ -462,7 +462,7 @@ public class MicroSensysPlugin: NSObject,
         logEvent("identifyTag -> CALLING Identify()")
 
         BleRfidLib.shared.Identify(
-            info: AntennaInfo.Antenna_Info_On
+            info: AntennaInfo.Antenna_Info_Off
         )
 
         logEvent("identifyTag -> Identify() RETURNED")
