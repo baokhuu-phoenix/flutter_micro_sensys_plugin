@@ -26,6 +26,41 @@ public class MicroSensysPlugin: NSObject,
     var statusStreamHandler: MyStreamHandler?
     var iosDevicesStreamHandler: MyStreamHandler?
 
+    private var lifecycleObservers: [NSObjectProtocol] = []
+
+    // =========================================================================
+    // app lifecycle logging
+    // =========================================================================
+    private func registerLifecycleLogging() {
+        let center = NotificationCenter.default
+
+        let events: [(Notification.Name, String)] = [
+            (UIApplication.didEnterBackgroundNotification,
+            "APP ENTERED BACKGROUND"),
+            (UIApplication.willEnterForegroundNotification,
+            "APP WILL ENTER FOREGROUND"),
+            (UIApplication.didBecomeActiveNotification,
+            "APP BECAME ACTIVE"),
+            (UIApplication.willResignActiveNotification,
+            "APP WILL RESIGN ACTIVE")
+        ]
+
+        for (notification, name) in events {
+            let observer = center.addObserver(
+                forName: notification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+
+                self.logEvent(name)
+                self.logState(name)
+            }
+
+            lifecycleObservers.append(observer)
+        }
+    }
+
     // =========================================================================
     // Diagnostic logging
     // =========================================================================
@@ -67,6 +102,8 @@ public class MicroSensysPlugin: NSObject,
         )
 
         let instance = MicroSensysPlugin()
+        //for testing
+        instance.registerLifecycleLogging()
 
         registrar.addMethodCallDelegate(
             instance,
@@ -406,21 +443,31 @@ public class MicroSensysPlugin: NSObject,
     // to read the RFID tag
     // =========================================================================
     private func identifyTag(result: @escaping FlutterResult) {
+        logEvent("========== identifyTag ENTER ==========")
         logState("identifyTag ENTER")
 
+        logEvent(
+            "identifyTag -> appState = \(UIApplication.shared.applicationState.rawValue)"
+        )
+
         guard isConnected else {
-            debugPrint(
-                "MicroSensysPlugin: identifyTag - not connected"
+            logEvent(
+                "identifyTag ABORTED: isConnected = false"
             )
+
             result(nil)
             return
         }
+
+        logEvent("identifyTag -> CALLING Identify()")
 
         BleRfidLib.shared.Identify(
             info: AntennaInfo.Antenna_Info_On
         )
 
-        logEvent("Identify() RETURNED")
+        logEvent("identifyTag -> Identify() RETURNED")
+
+        logState("identifyTag AFTER Identify()")
 
         result(nil)
     }
@@ -538,6 +585,7 @@ public class MicroSensysPlugin: NSObject,
     }
 
     //=====================
+    // Show what we receive from the lib
     //=====================
     public func ShowResponseMessage(data: [String]) {
 
@@ -625,7 +673,15 @@ public class MicroSensysPlugin: NSObject,
 
 
     public func ShowDeviceConnectionStatus(connected: Bool) {
-        logEvent("ShowDeviceConnectionStatus: connected=\(connected)")
+        logEvent(
+            "CONNECTION CALLBACK received: connected=\(connected)"
+        )
+
+        logState("CONNECTION CALLBACK BEFORE UPDATE")
+
+        logEvent(
+            "CONNECTION CALLBACK appState=\(UIApplication.shared.applicationState.rawValue)"
+        )
 
         isConnected = connected
         isConnecting = false
