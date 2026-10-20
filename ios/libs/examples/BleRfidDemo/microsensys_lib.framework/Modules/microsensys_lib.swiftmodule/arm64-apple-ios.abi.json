@@ -1,0 +1,2322 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "microsensys_lib",
+    "printedName": "microsensys_lib",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "microsensys_lib",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "microsensys_lib"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "microsensys_lib",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ShowListFoundDevicesCallback",
+        "printedName": "ShowListFoundDevicesCallback",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "ShowListFoundDevices",
+            "printedName": "ShowListFoundDevices(devices:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(pl)ShowListFoundDevicesCallback(im)ShowListFoundDevicesWithDevices:",
+            "mangledName": "$s15microsensys_lib28ShowListFoundDevicesCallbackP0cdeF07devicesySaySSG_tF",
+            "moduleName": "microsensys_lib",
+            "genericSig": "<τ_0_0 where τ_0_0 : microsensys_lib.ShowListFoundDevicesCallback>",
+            "sugared_genericSig": "<Self where Self : microsensys_lib.ShowListFoundDevicesCallback>",
+            "protocolReq": true,
+            "objc_name": "ShowListFoundDevicesWithDevices:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@microsensys_lib@objc(pl)ShowListFoundDevicesCallback",
+        "mangledName": "$s15microsensys_lib28ShowListFoundDevicesCallbackP",
+        "moduleName": "microsensys_lib",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "objc_name": "ShowListFoundDevicesCallback",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ShowListPairedDevicesCallback",
+        "printedName": "ShowListPairedDevicesCallback",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "ShowListPairedDevices",
+            "printedName": "ShowListPairedDevices(devices:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[[Swift.String : Swift.String]]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Swift.String]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(pl)ShowListPairedDevicesCallback(im)ShowListPairedDevicesWithDevices:",
+            "mangledName": "$s15microsensys_lib29ShowListPairedDevicesCallbackP0cdeF07devicesySaySDyS2SGG_tF",
+            "moduleName": "microsensys_lib",
+            "genericSig": "<τ_0_0 where τ_0_0 : microsensys_lib.ShowListPairedDevicesCallback>",
+            "sugared_genericSig": "<Self where Self : microsensys_lib.ShowListPairedDevicesCallback>",
+            "protocolReq": true,
+            "objc_name": "ShowListPairedDevicesWithDevices:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@microsensys_lib@objc(pl)ShowListPairedDevicesCallback",
+        "mangledName": "$s15microsensys_lib29ShowListPairedDevicesCallbackP",
+        "moduleName": "microsensys_lib",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "objc_name": "ShowListPairedDevicesCallback",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ShowDeviceConnectionStatusCallback",
+        "printedName": "ShowDeviceConnectionStatusCallback",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "ShowDeviceConnectionStatus",
+            "printedName": "ShowDeviceConnectionStatus(connected:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(pl)ShowDeviceConnectionStatusCallback(im)ShowDeviceConnectionStatusWithConnected:",
+            "mangledName": "$s15microsensys_lib34ShowDeviceConnectionStatusCallbackP0cdeF09connectedySb_tF",
+            "moduleName": "microsensys_lib",
+            "genericSig": "<τ_0_0 where τ_0_0 : microsensys_lib.ShowDeviceConnectionStatusCallback>",
+            "sugared_genericSig": "<Self where Self : microsensys_lib.ShowDeviceConnectionStatusCallback>",
+            "protocolReq": true,
+            "objc_name": "ShowDeviceConnectionStatusWithConnected:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@microsensys_lib@objc(pl)ShowDeviceConnectionStatusCallback",
+        "mangledName": "$s15microsensys_lib34ShowDeviceConnectionStatusCallbackP",
+        "moduleName": "microsensys_lib",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "objc_name": "ShowDeviceConnectionStatusCallback",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ShowConnectedDeviceInformationCallback",
+        "printedName": "ShowConnectedDeviceInformationCallback",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "ShowConnectedDeviceInformation",
+            "printedName": "ShowConnectedDeviceInformation(info:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(pl)ShowConnectedDeviceInformationCallback(im)ShowConnectedDeviceInformationWithInfo:",
+            "mangledName": "$s15microsensys_lib38ShowConnectedDeviceInformationCallbackP0cdeF04infoySDyS2SG_tF",
+            "moduleName": "microsensys_lib",
+            "genericSig": "<τ_0_0 where τ_0_0 : microsensys_lib.ShowConnectedDeviceInformationCallback>",
+            "sugared_genericSig": "<Self where Self : microsensys_lib.ShowConnectedDeviceInformationCallback>",
+            "protocolReq": true,
+            "objc_name": "ShowConnectedDeviceInformationWithInfo:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@microsensys_lib@objc(pl)ShowConnectedDeviceInformationCallback",
+        "mangledName": "$s15microsensys_lib38ShowConnectedDeviceInformationCallbackP",
+        "moduleName": "microsensys_lib",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "objc_name": "ShowConnectedDeviceInformationCallback",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ShowDeviceBatteryStatusCallback",
+        "printedName": "ShowDeviceBatteryStatusCallback",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "ShowDeviceBatteryStatus",
+            "printedName": "ShowDeviceBatteryStatus(status:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(pl)ShowDeviceBatteryStatusCallback(im)ShowDeviceBatteryStatusWithStatus:",
+            "mangledName": "$s15microsensys_lib31ShowDeviceBatteryStatusCallbackP0cdeF06statusySS_tF",
+            "moduleName": "microsensys_lib",
+            "genericSig": "<τ_0_0 where τ_0_0 : microsensys_lib.ShowDeviceBatteryStatusCallback>",
+            "sugared_genericSig": "<Self where Self : microsensys_lib.ShowDeviceBatteryStatusCallback>",
+            "protocolReq": true,
+            "objc_name": "ShowDeviceBatteryStatusWithStatus:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@microsensys_lib@objc(pl)ShowDeviceBatteryStatusCallback",
+        "mangledName": "$s15microsensys_lib31ShowDeviceBatteryStatusCallbackP",
+        "moduleName": "microsensys_lib",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "objc_name": "ShowDeviceBatteryStatusCallback",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ShowStatusMessageCallback",
+        "printedName": "ShowStatusMessageCallback",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "ShowStatusMessage",
+            "printedName": "ShowStatusMessage(status:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(pl)ShowStatusMessageCallback(im)ShowStatusMessageWithStatus:",
+            "mangledName": "$s15microsensys_lib25ShowStatusMessageCallbackP0cdE06statusySS_tF",
+            "moduleName": "microsensys_lib",
+            "genericSig": "<τ_0_0 where τ_0_0 : microsensys_lib.ShowStatusMessageCallback>",
+            "sugared_genericSig": "<Self where Self : microsensys_lib.ShowStatusMessageCallback>",
+            "protocolReq": true,
+            "objc_name": "ShowStatusMessageWithStatus:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@microsensys_lib@objc(pl)ShowStatusMessageCallback",
+        "mangledName": "$s15microsensys_lib25ShowStatusMessageCallbackP",
+        "moduleName": "microsensys_lib",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "objc_name": "ShowStatusMessageCallback",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ShowResponseMessageCallback",
+        "printedName": "ShowResponseMessageCallback",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "ShowResponseMessage",
+            "printedName": "ShowResponseMessage(data:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(pl)ShowResponseMessageCallback(im)ShowResponseMessageWithData:",
+            "mangledName": "$s15microsensys_lib27ShowResponseMessageCallbackP0cdE04dataySaySSG_tF",
+            "moduleName": "microsensys_lib",
+            "genericSig": "<τ_0_0 where τ_0_0 : microsensys_lib.ShowResponseMessageCallback>",
+            "sugared_genericSig": "<Self where Self : microsensys_lib.ShowResponseMessageCallback>",
+            "protocolReq": true,
+            "objc_name": "ShowResponseMessageWithData:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@microsensys_lib@objc(pl)ShowResponseMessageCallback",
+        "mangledName": "$s15microsensys_lib27ShowResponseMessageCallbackP",
+        "moduleName": "microsensys_lib",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "objc_name": "ShowResponseMessageCallback",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "BleRfidLib",
+        "printedName": "BleRfidLib",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "shared",
+            "printedName": "shared",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "BleRfidLib",
+                "printedName": "microsensys_lib.BleRfidLib",
+                "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:15microsensys_lib10BleRfidLibC6sharedACvpZ",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC6sharedACvpZ",
+            "moduleName": "microsensys_lib",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "BleRfidLib",
+                    "printedName": "microsensys_lib.BleRfidLib",
+                    "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15microsensys_lib10BleRfidLibC6sharedACvgZ",
+                "mangledName": "$s15microsensys_lib10BleRfidLibC6sharedACvgZ",
+                "moduleName": "microsensys_lib",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "BleRfidLib",
+                "printedName": "microsensys_lib.BleRfidLib",
+                "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)init",
+            "mangledName": "$s15microsensys_lib10BleRfidLibCACycfc",
+            "moduleName": "microsensys_lib",
+            "overriding": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "InitShowListFoundDevicesCallback",
+            "printedName": "InitShowListFoundDevicesCallback(delegate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ProtocolComposition",
+                "printedName": "AnyObject"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)InitShowListFoundDevicesCallbackWithDelegate:",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC32InitShowListFoundDevicesCallback8delegateyyXl_tF",
+            "moduleName": "microsensys_lib",
+            "objc_name": "InitShowListFoundDevicesCallbackWithDelegate:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "InitShowListPairedDevicesCallback",
+            "printedName": "InitShowListPairedDevicesCallback(delegate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ProtocolComposition",
+                "printedName": "AnyObject"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)InitShowListPairedDevicesCallbackWithDelegate:",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC33InitShowListPairedDevicesCallback8delegateyyXl_tF",
+            "moduleName": "microsensys_lib",
+            "objc_name": "InitShowListPairedDevicesCallbackWithDelegate:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "InitShowDeviceConnectionStatusCallback",
+            "printedName": "InitShowDeviceConnectionStatusCallback(delegate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ProtocolComposition",
+                "printedName": "AnyObject"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)InitShowDeviceConnectionStatusCallbackWithDelegate:",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC38InitShowDeviceConnectionStatusCallback8delegateyyXl_tF",
+            "moduleName": "microsensys_lib",
+            "objc_name": "InitShowDeviceConnectionStatusCallbackWithDelegate:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "InitShowConnectedDeviceInformationCallback",
+            "printedName": "InitShowConnectedDeviceInformationCallback(delegate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ProtocolComposition",
+                "printedName": "AnyObject"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)InitShowConnectedDeviceInformationCallbackWithDelegate:",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC42InitShowConnectedDeviceInformationCallback8delegateyyXl_tF",
+            "moduleName": "microsensys_lib",
+            "objc_name": "InitShowConnectedDeviceInformationCallbackWithDelegate:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "InitShowDeviceBatteryStatusCallback",
+            "printedName": "InitShowDeviceBatteryStatusCallback(delegate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ProtocolComposition",
+                "printedName": "AnyObject"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)InitShowDeviceBatteryStatusCallbackWithDelegate:",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC35InitShowDeviceBatteryStatusCallback8delegateyyXl_tF",
+            "moduleName": "microsensys_lib",
+            "objc_name": "InitShowDeviceBatteryStatusCallbackWithDelegate:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "InitShowStatusMessageCallback",
+            "printedName": "InitShowStatusMessageCallback(delegate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ProtocolComposition",
+                "printedName": "AnyObject"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)InitShowStatusMessageCallbackWithDelegate:",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC29InitShowStatusMessageCallback8delegateyyXl_tF",
+            "moduleName": "microsensys_lib",
+            "objc_name": "InitShowStatusMessageCallbackWithDelegate:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "InitShowResponseMessageCallback",
+            "printedName": "InitShowResponseMessageCallback(delegate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ProtocolComposition",
+                "printedName": "AnyObject"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)InitShowResponseMessageCallbackWithDelegate:",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC31InitShowResponseMessageCallback8delegateyyXl_tF",
+            "moduleName": "microsensys_lib",
+            "objc_name": "InitShowResponseMessageCallbackWithDelegate:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "StartDeviceScan",
+            "printedName": "StartDeviceScan(scanDevice:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ScanDevice",
+                "printedName": "microsensys_lib.ScanDevice",
+                "usr": "c:@M@microsensys_lib@E@ScanDevice"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)StartDeviceScanWithScanDevice:",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC15StartDeviceScan04scanG0yAA0hG0O_tF",
+            "moduleName": "microsensys_lib",
+            "objc_name": "StartDeviceScanWithScanDevice:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "StopDeviceScan",
+            "printedName": "StopDeviceScan()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)StopDeviceScan",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC14StopDeviceScanyyF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "ConnectDeviceByName",
+            "printedName": "ConnectDeviceByName(deviceName:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)ConnectDeviceByNameWithDeviceName:",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC19ConnectDeviceByName06deviceI0ySS_tF",
+            "moduleName": "microsensys_lib",
+            "objc_name": "ConnectDeviceByNameWithDeviceName:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "DisconnectDevice",
+            "printedName": "DisconnectDevice()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)DisconnectDevice",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC16DisconnectDeviceyyF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "ReadBatteryStatus",
+            "printedName": "ReadBatteryStatus()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)ReadBatteryStatus",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC17ReadBatteryStatusyyF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "ReadDeviceInformation",
+            "printedName": "ReadDeviceInformation()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)ReadDeviceInformation",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC21ReadDeviceInformationyyF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "GetPairedDevices",
+            "printedName": "GetPairedDevices()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)GetPairedDevices",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC16GetPairedDevicesyyF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "Identify",
+            "printedName": "Identify(info:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "AntennaInfo",
+                "printedName": "microsensys_lib.AntennaInfo",
+                "usr": "c:@M@microsensys_lib@E@AntennaInfo"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)IdentifyWithInfo:",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC8Identify4infoyAA11AntennaInfoO_tF",
+            "moduleName": "microsensys_lib",
+            "objc_name": "IdentifyWithInfo:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "SelectAntenna",
+            "printedName": "SelectAntenna(antenna:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Antenna",
+                "printedName": "microsensys_lib.Antenna",
+                "usr": "c:@M@microsensys_lib@E@Antenna"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib(im)SelectAntennaWithAntenna:",
+            "mangledName": "$s15microsensys_lib10BleRfidLibC13SelectAntenna7antennayAA0G0O_tF",
+            "moduleName": "microsensys_lib",
+            "objc_name": "SelectAntennaWithAntenna:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@microsensys_lib@objc(cs)BleRfidLib",
+        "mangledName": "$s15microsensys_lib10BleRfidLibC",
+        "moduleName": "microsensys_lib",
+        "objc_name": "BleRfidLib",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "microsensys_lib",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreBluetooth",
+        "printedName": "CoreBluetooth",
+        "declKind": "Import",
+        "moduleName": "microsensys_lib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ScanDevice",
+        "printedName": "ScanDevice",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "PenSolidPRO",
+            "printedName": "PenSolidPRO",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(microsensys_lib.ScanDevice.Type) -> microsensys_lib.ScanDevice",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ScanDevice",
+                    "printedName": "microsensys_lib.ScanDevice",
+                    "usr": "c:@M@microsensys_lib@E@ScanDevice"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "microsensys_lib.ScanDevice.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ScanDevice",
+                        "printedName": "microsensys_lib.ScanDevice",
+                        "usr": "c:@M@microsensys_lib@E@ScanDevice"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@microsensys_lib@E@ScanDevice@ScanDevicePenSolidPRO",
+            "mangledName": "$s15microsensys_lib10ScanDeviceO11PenSolidPROyA2CmF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "microsensys_lib.ScanDevice?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ScanDevice",
+                    "printedName": "microsensys_lib.ScanDevice",
+                    "usr": "c:@M@microsensys_lib@E@ScanDevice"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:15microsensys_lib10ScanDeviceO8rawValueACSgSi_tcfc",
+            "mangledName": "$s15microsensys_lib10ScanDeviceO8rawValueACSgSi_tcfc",
+            "moduleName": "microsensys_lib",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:15microsensys_lib10ScanDeviceO8rawValueSivp",
+            "mangledName": "$s15microsensys_lib10ScanDeviceO8rawValueSivp",
+            "moduleName": "microsensys_lib",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15microsensys_lib10ScanDeviceO8rawValueSivg",
+                "mangledName": "$s15microsensys_lib10ScanDeviceO8rawValueSivg",
+                "moduleName": "microsensys_lib",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@microsensys_lib@E@ScanDevice",
+        "mangledName": "$s15microsensys_lib10ScanDeviceO",
+        "moduleName": "microsensys_lib",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Antenna",
+        "printedName": "Antenna",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "Antenna_1",
+            "printedName": "Antenna_1",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(microsensys_lib.Antenna.Type) -> microsensys_lib.Antenna",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Antenna",
+                    "printedName": "microsensys_lib.Antenna",
+                    "usr": "c:@M@microsensys_lib@E@Antenna"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "microsensys_lib.Antenna.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Antenna",
+                        "printedName": "microsensys_lib.Antenna",
+                        "usr": "c:@M@microsensys_lib@E@Antenna"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@microsensys_lib@E@Antenna@AntennaAntenna_1",
+            "mangledName": "$s15microsensys_lib7AntennaO0C2_1yA2CmF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "Antenna_2",
+            "printedName": "Antenna_2",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(microsensys_lib.Antenna.Type) -> microsensys_lib.Antenna",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Antenna",
+                    "printedName": "microsensys_lib.Antenna",
+                    "usr": "c:@M@microsensys_lib@E@Antenna"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "microsensys_lib.Antenna.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Antenna",
+                        "printedName": "microsensys_lib.Antenna",
+                        "usr": "c:@M@microsensys_lib@E@Antenna"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@microsensys_lib@E@Antenna@AntennaAntenna_2",
+            "mangledName": "$s15microsensys_lib7AntennaO0C2_2yA2CmF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Var",
+            "name": "Antenna_All",
+            "printedName": "Antenna_All",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(microsensys_lib.Antenna.Type) -> microsensys_lib.Antenna",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Antenna",
+                    "printedName": "microsensys_lib.Antenna",
+                    "usr": "c:@M@microsensys_lib@E@Antenna"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "microsensys_lib.Antenna.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Antenna",
+                        "printedName": "microsensys_lib.Antenna",
+                        "usr": "c:@M@microsensys_lib@E@Antenna"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@microsensys_lib@E@Antenna@AntennaAntenna_All",
+            "mangledName": "$s15microsensys_lib7AntennaO0C4_AllyA2CmF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 2
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "microsensys_lib.Antenna?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Antenna",
+                    "printedName": "microsensys_lib.Antenna",
+                    "usr": "c:@M@microsensys_lib@E@Antenna"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt8",
+                "printedName": "Swift.UInt8",
+                "usr": "s:s5UInt8V"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:15microsensys_lib7AntennaO8rawValueACSgs5UInt8V_tcfc",
+            "mangledName": "$s15microsensys_lib7AntennaO8rawValueACSgs5UInt8V_tcfc",
+            "moduleName": "microsensys_lib",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt8",
+                "printedName": "Swift.UInt8",
+                "usr": "s:s5UInt8V"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:15microsensys_lib7AntennaO8rawValues5UInt8Vvp",
+            "mangledName": "$s15microsensys_lib7AntennaO8rawValues5UInt8Vvp",
+            "moduleName": "microsensys_lib",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt8",
+                    "printedName": "Swift.UInt8",
+                    "usr": "s:s5UInt8V"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15microsensys_lib7AntennaO8rawValues5UInt8Vvg",
+                "mangledName": "$s15microsensys_lib7AntennaO8rawValues5UInt8Vvg",
+                "moduleName": "microsensys_lib",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@microsensys_lib@E@Antenna",
+        "mangledName": "$s15microsensys_lib7AntennaO",
+        "moduleName": "microsensys_lib",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "enumRawTypeName": "UInt8",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt8",
+                    "printedName": "Swift.UInt8",
+                    "usr": "s:s5UInt8V"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "AntennaInfo",
+        "printedName": "AntennaInfo",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "Antenna_Info_On",
+            "printedName": "Antenna_Info_On",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(microsensys_lib.AntennaInfo.Type) -> microsensys_lib.AntennaInfo",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AntennaInfo",
+                    "printedName": "microsensys_lib.AntennaInfo",
+                    "usr": "c:@M@microsensys_lib@E@AntennaInfo"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "microsensys_lib.AntennaInfo.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AntennaInfo",
+                        "printedName": "microsensys_lib.AntennaInfo",
+                        "usr": "c:@M@microsensys_lib@E@AntennaInfo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@microsensys_lib@E@AntennaInfo@AntennaInfoAntenna_Info_On",
+            "mangledName": "$s15microsensys_lib11AntennaInfoO0c1_D3_OnyA2CmF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "Antenna_Info_Off",
+            "printedName": "Antenna_Info_Off",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(microsensys_lib.AntennaInfo.Type) -> microsensys_lib.AntennaInfo",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AntennaInfo",
+                    "printedName": "microsensys_lib.AntennaInfo",
+                    "usr": "c:@M@microsensys_lib@E@AntennaInfo"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "microsensys_lib.AntennaInfo.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AntennaInfo",
+                        "printedName": "microsensys_lib.AntennaInfo",
+                        "usr": "c:@M@microsensys_lib@E@AntennaInfo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@microsensys_lib@E@AntennaInfo@AntennaInfoAntenna_Info_Off",
+            "mangledName": "$s15microsensys_lib11AntennaInfoO0c1_D4_OffyA2CmF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "microsensys_lib.AntennaInfo?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AntennaInfo",
+                    "printedName": "microsensys_lib.AntennaInfo",
+                    "usr": "c:@M@microsensys_lib@E@AntennaInfo"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt8",
+                "printedName": "Swift.UInt8",
+                "usr": "s:s5UInt8V"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:15microsensys_lib11AntennaInfoO8rawValueACSgs5UInt8V_tcfc",
+            "mangledName": "$s15microsensys_lib11AntennaInfoO8rawValueACSgs5UInt8V_tcfc",
+            "moduleName": "microsensys_lib",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt8",
+                "printedName": "Swift.UInt8",
+                "usr": "s:s5UInt8V"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:15microsensys_lib11AntennaInfoO8rawValues5UInt8Vvp",
+            "mangledName": "$s15microsensys_lib11AntennaInfoO8rawValues5UInt8Vvp",
+            "moduleName": "microsensys_lib",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt8",
+                    "printedName": "Swift.UInt8",
+                    "usr": "s:s5UInt8V"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15microsensys_lib11AntennaInfoO8rawValues5UInt8Vvg",
+                "mangledName": "$s15microsensys_lib11AntennaInfoO8rawValues5UInt8Vvg",
+                "moduleName": "microsensys_lib",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@microsensys_lib@E@AntennaInfo",
+        "mangledName": "$s15microsensys_lib11AntennaInfoO",
+        "moduleName": "microsensys_lib",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "enumRawTypeName": "UInt8",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt8",
+                    "printedName": "Swift.UInt8",
+                    "usr": "s:s5UInt8V"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "microsensys_lib",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "microsensys_lib",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Date",
+        "printedName": "Date",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "withAddedSeconds",
+            "printedName": "withAddedSeconds(seconds:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Date",
+                "printedName": "Foundation.Date",
+                "usr": "s:10Foundation4DateV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10Foundation4DateV15microsensys_libE16withAddedSeconds7secondsACSd_tF",
+            "mangledName": "$s10Foundation4DateV15microsensys_libE16withAddedSeconds7secondsACSd_tF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "withAddedMinutes",
+            "printedName": "withAddedMinutes(minutes:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Date",
+                "printedName": "Foundation.Date",
+                "usr": "s:10Foundation4DateV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10Foundation4DateV15microsensys_libE16withAddedMinutes7minutesACSd_tF",
+            "mangledName": "$s10Foundation4DateV15microsensys_libE16withAddedMinutes7minutesACSd_tF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "withAddedHours",
+            "printedName": "withAddedHours(hours:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Date",
+                "printedName": "Foundation.Date",
+                "usr": "s:10Foundation4DateV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10Foundation4DateV15microsensys_libE14withAddedHours5hoursACSd_tF",
+            "mangledName": "$s10Foundation4DateV15microsensys_libE14withAddedHours5hoursACSd_tF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "currentTimeInMilliSeconds",
+            "printedName": "currentTimeInMilliSeconds()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10Foundation4DateV15microsensys_libE25currentTimeInMilliSecondsSiyF",
+            "mangledName": "$s10Foundation4DateV15microsensys_libE25currentTimeInMilliSecondsSiyF",
+            "moduleName": "microsensys_lib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:10Foundation4DateV",
+        "mangledName": "$s10Foundation4DateV",
+        "moduleName": "Foundation",
+        "intro_Macosx": "10.10",
+        "intro_iOS": "8.0",
+        "intro_tvOS": "9.0",
+        "intro_watchOS": "2.0",
+        "declAttributes": [
+          "Available",
+          "Available",
+          "Available",
+          "Available"
+        ],
+        "isExternal": true,
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Comparable",
+            "printedName": "Comparable",
+            "usr": "s:SL",
+            "mangledName": "$sSL"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomReflectable",
+            "printedName": "CustomReflectable",
+            "usr": "s:s17CustomReflectableP",
+            "mangledName": "$ss17CustomReflectableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          },
+          {
+            "kind": "Conformance",
+            "name": "ReferenceConvertible",
+            "printedName": "ReferenceConvertible",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "ReferenceType",
+                "printedName": "ReferenceType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSDate",
+                    "printedName": "Foundation.NSDate",
+                    "usr": "c:objc(cs)NSDate"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:10Foundation20ReferenceConvertibleP",
+            "mangledName": "$s10Foundation20ReferenceConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_ObjectiveCBridgeable",
+            "printedName": "_ObjectiveCBridgeable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "_ObjectiveCType",
+                "printedName": "_ObjectiveCType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSDate",
+                    "printedName": "Foundation.NSDate",
+                    "usr": "c:objc(cs)NSDate"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:s21_ObjectiveCBridgeableP",
+            "mangledName": "$ss21_ObjectiveCBridgeableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_CustomPlaygroundQuickLookable",
+            "printedName": "_CustomPlaygroundQuickLookable",
+            "usr": "s:s30_CustomPlaygroundQuickLookableP",
+            "mangledName": "$ss30_CustomPlaygroundQuickLookableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Strideable",
+            "printedName": "Strideable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "Stride",
+                "printedName": "Stride",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:Sx",
+            "mangledName": "$sSx"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 184,
+      "length": 2,
+      "value": "10"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 255,
+      "length": 4,
+      "value": "1000"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 328,
+      "length": 3,
+      "value": "200"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "StringLiteral",
+      "offset": 405,
+      "length": 38,
+      "value": "\"5fac82cd-1930-4ea7-b231-9eec25346491\""
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "StringLiteral",
+      "offset": 478,
+      "length": 6,
+      "value": "\"180F\""
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "StringLiteral",
+      "offset": 572,
+      "length": 38,
+      "value": "\"74eec393-34f5-4443-a9cf-9dd4606e380a\""
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "StringLiteral",
+      "offset": 646,
+      "length": 6,
+      "value": "\"2A19\""
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "StringLiteral",
+      "offset": 732,
+      "length": 38,
+      "value": "\"00002902-0000-1000-8000-00805f9b34fb\""
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1553,
+      "length": 4,
+      "value": "0x00"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1593,
+      "length": 4,
+      "value": "0x02"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1633,
+      "length": 4,
+      "value": "0x24"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1673,
+      "length": 4,
+      "value": "0xAA"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1713,
+      "length": 4,
+      "value": "0xBB"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1753,
+      "length": 4,
+      "value": "0x5C"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1793,
+      "length": 4,
+      "value": "0xCC"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1833,
+      "length": 4,
+      "value": "0xCD"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1873,
+      "length": 4,
+      "value": "0xDD"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2101,
+      "length": 4,
+      "value": "0x01"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2129,
+      "length": 4,
+      "value": "0x02"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2157,
+      "length": 4,
+      "value": "0x03"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2439,
+      "length": 4,
+      "value": "0x01"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2472,
+      "length": 4,
+      "value": "0x02"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "Array",
+      "offset": 2712,
+      "length": 51,
+      "value": "[0x02, 0x00, 0x00, 0x06, 0x10, 0x10, 0xFF, 0x01, 0x00, 0x00]"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "Array",
+      "offset": 2811,
+      "length": 56,
+      "value": "[0x02, 0xBB, 0x00, 0x07, 0x10, 0x3C, 0xFF, 0x01, 0x10, 0x00, 0x00]"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "Array",
+      "offset": 2935,
+      "length": 51,
+      "value": "[0x02, 0xCC, 0x00, 0x06, 0x30, 0x10, 0xFF, 0x01, 0x00, 0x00]"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "Array",
+      "offset": 3068,
+      "length": 56,
+      "value": "[0x02, 0xCC, 0x00, 0x07, 0x30, 0x10, 0xFF, 0x09, 0x01, 0x00, 0x00]"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleStructure.swift",
+      "kind": "Array",
+      "offset": 3201,
+      "length": 56,
+      "value": "[0x02, 0xDD, 0x00, 0x07, 0x10, 0x22, 0xFF, 0x00, 0x00, 0x00, 0x00]"
+    },
+    {
+      "filePath": "\/Users\/mrennert\/Documents\/XcodeProjects\/BLE_UHF_Standard\/microsensys_lib\/microsensys_lib\/BleDecoder.swift",
+      "kind": "IntegerLiteral",
+      "offset": 302,
+      "length": 4,
+      "value": "0x00"
+    }
+  ]
+}

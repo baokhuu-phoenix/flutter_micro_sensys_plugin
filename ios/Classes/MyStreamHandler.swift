@@ -1,9 +1,22 @@
+
 import Flutter
-import UIKit
-import microsensys_lib
 
+public class MyStreamHandler: NSObject, FlutterStreamHandler {
 
-class AMyStreamHandler :NSObject {
+    var eventSink: FlutterEventSink?
 
-    
+    public func onListen(
+        withArguments arguments: Any?,
+        eventSink events: @escaping FlutterEventSink
+    ) -> FlutterError? {
+        self.eventSink = events
+        return nil
+    }
+
+    public func onCancel(
+        withArguments arguments: Any?
+    ) -> FlutterError? {
+        self.eventSink = nil
+        return nil
+    }
 }

@@ -1,6 +1,15 @@
 import 'micro_sensys_platform_interface.dart';
 
 class MicroSensys {
+  // Temporary testing methods
+  Future<void> scanIOSDevices() {
+    return MicroSensysPlatform.instance.scanIOSDevices();
+  }
+
+  Future<void> getIOSPairedDevices() {
+    return MicroSensysPlatform.instance.getIOSPairedDevices();
+  }
+
   Future<String?> getPlatformVersion() {
     return MicroSensysPlatform.instance.getPlatformVersion();
   }
@@ -42,14 +51,31 @@ class MicroSensys {
     return MicroSensysPlatform.instance.iosListenStatus();
   }
 
+  Stream<String> iosListenDevices() {
+    return MicroSensysPlatform.instance.iosListenDevices();
+  }
+
   Future<bool?> connect(String deviceIdentifier) {
-
-    print(
-      '### MicroSensys.connect() CALLED '
-          'deviceIdentifier=[$deviceIdentifier] ###',
-    );
-
     return MicroSensysPlatform.instance.connect(deviceIdentifier);
   }
 
+  /// Asks the SDK for the connected reader information.
+  ///
+  /// The answer arrives asynchronously on [iosListenDeviceInfo].
+  Future<bool?> readDeviceInformation() {
+    return MicroSensysPlatform.instance.readDeviceInformation();
+  }
+
+  /// Serial number of the connected reader.
+  ///
+  /// Empty until [readDeviceInformation] has completed at least once.
+  Future<String?> getReaderSerial() {
+    return MicroSensysPlatform.instance.getReaderSerial();
+  }
+
+  /// Device information reported by the SDK, keyed by field name
+  /// (e.g. `READER_ID`, `BATTERY`).
+  Stream<Map<String, String>> iosListenDeviceInfo() {
+    return MicroSensysPlatform.instance.iosListenDeviceInfo();
+  }
 }

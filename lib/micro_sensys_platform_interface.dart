@@ -3,67 +3,134 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'micro_sensys_method_channel.dart';
 
 abstract class MicroSensysPlatform extends PlatformInterface {
-  /// Constructs a MicroSensysPlatform.
   MicroSensysPlatform() : super(token: _token);
 
   static final Object _token = Object();
 
   static MicroSensysPlatform _instance = MethodChannelMicroSensys();
 
-  /// The default instance of [MicroSensysPlatform] to use.
-  ///
-  /// Defaults to [MethodChannelMicroSensys].
   static MicroSensysPlatform get instance => _instance;
 
-  /// Platform-specific implementations should set this with their own
-  /// platform-specific class that extends [MicroSensysPlatform] when
-  /// they register themselves.
   static set instance(MicroSensysPlatform instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
 
   Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError(
+      'getPlatformVersion() has not been implemented.',
+    );
   }
 
-  Future<bool?> initReader({String? frequencyType, String? communicationType}) {
-    throw UnimplementedError('initReader() has not been implemented.');
+  Future<bool?> initReader({
+    String? frequencyType,
+    String? communicationType,
+  }) {
+    throw UnimplementedError(
+      'initReader() has not been implemented.',
+    );
   }
 
-  Future<bool?> initIOSReader({required String deviceName}) {
-    throw UnimplementedError('initReader() has not been implemented.');
+  Future<bool?> initIOSReader({
+    required String deviceName,
+  }) {
+    throw UnimplementedError(
+      'initIOSReader() has not been implemented.',
+    );
   }
 
   Future<String?> identifyTag() {
-    throw UnimplementedError('identifyTag() has not been implemented.');
+    throw UnimplementedError(
+      'identifyTag() has not been implemented.',
+    );
   }
 
   Future<bool?> checkConnected() {
-    throw UnimplementedError('checkConnected() has not been implemented.');
+    throw UnimplementedError(
+      'checkConnected() has not been implemented.',
+    );
   }
 
   Future<bool?> checkInitialized() {
-    throw UnimplementedError('checkInitialized() has not been implemented.');
+    throw UnimplementedError(
+      'checkInitialized() has not been implemented.',
+    );
   }
 
   Future<bool?> checkConnecting() {
-    throw UnimplementedError('checkConnecting() has not been implemented.');
+    throw UnimplementedError(
+      'checkConnecting() has not been implemented.',
+    );
   }
 
   Future<void> disConnect() {
-    throw UnimplementedError('disConnect() has not been implemented.');
+    throw UnimplementedError(
+      'disConnect() has not been implemented.',
+    );
   }
 
   Stream<String> listenTags() {
-    throw UnimplementedError('listenTags() has not been implemented.');
+    throw UnimplementedError(
+      'listenTags() has not been implemented.',
+    );
   }
 
   Stream<String> iosListenStatus() {
-    throw UnimplementedError('iosListenStatus() has not been implemented.');
+    throw UnimplementedError(
+      'iosListenStatus() has not been implemented.',
+    );
   }
 
+  /// Start the MicroSensys SDK device scan on iOS.
+  Future<void> scanIOSDevices() {
+    throw UnimplementedError(
+      'scanIOSDevices() has not been implemented.',
+    );
+  }
+
+  /// Stream of devices discovered by StartDeviceScan().
+  Stream<String> iosListenDevices() {
+    throw UnimplementedError(
+      'iosListenDevices() has not been implemented.',
+    );
+  }
+
+  /// Connect to a device discovered by scanIOSDevices().
   Future<bool?> connect(String deviceIdentifier) {
-    throw UnimplementedError('connect() has not been implemented.');
+    throw UnimplementedError(
+      'connect() has not been implemented.',
+    );
+  }
+
+  /// Asks the SDK for the connected reader information.
+  ///
+  /// The answer arrives asynchronously on [iosListenDeviceInfo].
+  Future<bool?> readDeviceInformation() {
+    throw UnimplementedError(
+      'readDeviceInformation() has not been implemented.',
+    );
+  }
+
+  /// Serial number of the connected reader.
+  ///
+  /// Empty until [readDeviceInformation] has completed at least once.
+  Future<String?> getReaderSerial() {
+    throw UnimplementedError(
+      'getReaderSerial() has not been implemented.',
+    );
+  }
+
+  /// Device information reported by the SDK, keyed by field name
+  /// (e.g. `READER_ID`, `BATTERY`).
+  Stream<Map<String, String>> iosListenDeviceInfo() {
+    throw UnimplementedError(
+      'iosListenDeviceInfo() has not been implemented.',
+    );
+  }
+
+  Future<void> getIOSPairedDevices() {
+    throw UnimplementedError(
+      'getIOSPairedDevices() has not been implemented.',
+    );
   }
 }

@@ -10,8 +10,15 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
   final methodChannel = const MethodChannel('micro_sensys');
 
   final EventChannel eventChannel = const EventChannel('micro_sensys_events');
+
   final EventChannel eventChannelStatus =
       const EventChannel('micro_sensys_events_status');
+
+  final EventChannel eventChannelIOSDevices =
+      const EventChannel('micro_sensys_events_ios_devices');
+
+  final EventChannel eventChannelDeviceInfo =
+      const EventChannel('micro_sensys_events_device_info');
 
   @override
   Future<String?> getPlatformVersion() async {
@@ -72,7 +79,6 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
 
   @override
   Future<bool?> connect(String deviceIdentifier) {
-
     debugPrint(
       'MethodChannelMicroSensys.connect(): '
           'deviceIdentifier=[$deviceIdentifier], '
@@ -85,5 +91,41 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
         'deviceIdentifier': deviceIdentifier,
       },
     );
+  }
+
+  @override
+  Future<void> getIOSPairedDevices() {
+    return methodChannel.invokeMethod<void>('getIOSPairedDevices');
+  }
+
+
+
+  @override
+  Future<void> scanIOSDevices() {
+    return methodChannel.invokeMethod<void>('scanIOSDevices');
+  }
+
+  @override
+  Stream<String> iosListenDevices() {
+    return eventChannelIOSDevices
+        .receiveBroadcastStream()
+        .cast<String>();
+  }
+
+  @override
+  Future<bool?> readDeviceInformation() {
+    return methodChannel.invokeMethod<bool>('readDeviceInformation');
+  }
+
+  @override
+  Future<String?> getReaderSerial() {
+    return methodChannel.invokeMethod<String>('getReaderSerial');
+  }
+
+  @override
+  Stream<Map<String, String>> iosListenDeviceInfo() {
+    return eventChannelDeviceInfo.receiveBroadcastStream().map(
+          (event) => Map<String, String>.from(event as Map),
+        );
   }
 }
