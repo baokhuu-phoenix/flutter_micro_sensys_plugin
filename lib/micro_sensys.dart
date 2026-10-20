@@ -58,4 +58,24 @@ class MicroSensys {
   Future<bool?> connect(String deviceIdentifier) {
     return MicroSensysPlatform.instance.connect(deviceIdentifier);
   }
+
+  /// Asks the SDK for the connected reader information.
+  ///
+  /// The answer arrives asynchronously on [iosListenDeviceInfo].
+  Future<bool?> readDeviceInformation() {
+    return MicroSensysPlatform.instance.readDeviceInformation();
+  }
+
+  /// Serial number of the connected reader.
+  ///
+  /// Empty until [readDeviceInformation] has completed at least once.
+  Future<String?> getReaderSerial() {
+    return MicroSensysPlatform.instance.getReaderSerial();
+  }
+
+  /// Device information reported by the SDK, keyed by field name
+  /// (e.g. `READER_ID`, `BATTERY`).
+  Stream<Map<String, String>> iosListenDeviceInfo() {
+    return MicroSensysPlatform.instance.iosListenDeviceInfo();
+  }
 }

@@ -102,6 +102,32 @@ abstract class MicroSensysPlatform extends PlatformInterface {
     );
   }
 
+  /// Asks the SDK for the connected reader information.
+  ///
+  /// The answer arrives asynchronously on [iosListenDeviceInfo].
+  Future<bool?> readDeviceInformation() {
+    throw UnimplementedError(
+      'readDeviceInformation() has not been implemented.',
+    );
+  }
+
+  /// Serial number of the connected reader.
+  ///
+  /// Empty until [readDeviceInformation] has completed at least once.
+  Future<String?> getReaderSerial() {
+    throw UnimplementedError(
+      'getReaderSerial() has not been implemented.',
+    );
+  }
+
+  /// Device information reported by the SDK, keyed by field name
+  /// (e.g. `READER_ID`, `BATTERY`).
+  Stream<Map<String, String>> iosListenDeviceInfo() {
+    throw UnimplementedError(
+      'iosListenDeviceInfo() has not been implemented.',
+    );
+  }
+
   Future<void> getIOSPairedDevices() {
     throw UnimplementedError(
       'getIOSPairedDevices() has not been implemented.',

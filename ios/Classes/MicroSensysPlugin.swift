@@ -25,6 +25,17 @@ public class MicroSensysPlugin: NSObject,
     var streamHandler: MyStreamHandler?
     var statusStreamHandler: MyStreamHandler?
     var iosDevicesStreamHandler: MyStreamHandler?
+    var deviceInfoStreamHandler: MyStreamHandler?
+
+    /// Key the SDK uses for the reader serial number inside
+    /// `ShowConnectedDeviceInformation(info:)`.
+    ///
+    /// Confirmed from the `SDK DEVICE INFO CALLBACK` log, which returns
+    /// `["HW": ..., "SERIAL": ..., "SYSTEM": ..., "NAME": ..., "FW": ...]`.
+    static let readerSerialKey = "SERIAL"
+
+    /// Last payload received from `ReadDeviceInformation()`.
+    var lastDeviceInfo: [String: String] = [:]
 
     private var lifecycleObservers: [NSObjectProtocol] = []
 
@@ -144,6 +155,18 @@ public class MicroSensysPlugin: NSObject,
             instance.iosDevicesStreamHandler
         )
 
+        // Connected device information (serial number, battery, ...)
+        instance.deviceInfoStreamHandler = MyStreamHandler()
+
+        let eventChannelDeviceInfo = FlutterEventChannel(
+            name: "micro_sensys_events_device_info",
+            binaryMessenger: registrar.messenger()
+        )
+
+        eventChannelDeviceInfo.setStreamHandler(
+            instance.deviceInfoStreamHandler
+        )
+
         debugPrint("🔍 [REGISTER] MicroSensysPlugin.register() COMPLETE")
     }
 
@@ -243,6 +266,12 @@ public class MicroSensysPlugin: NSObject,
 
         case "identifyTag":
             identifyTag(result: result)
+
+        case "readDeviceInformation":
+            readDeviceInformation(result: result)
+
+        case "getReaderSerial":
+            getReaderSerial(result: result)
 
         case "checkConnected":
             debugPrint(
@@ -473,6 +502,61 @@ public class MicroSensysPlugin: NSObject,
     }
 
     // =========================================================================
+    // Reader device information (serial number, battery, ...)
+    // =========================================================================
+
+    /// Asks the SDK for the connected reader information.
+    ///
+    /// `ReadDeviceInformation()` answers asynchronously through
+    /// `ShowConnectedDeviceInformation(info:)`, which forwards the payload to
+    /// Flutter on the "micro_sensys_events_device_info" event channel. The
+    /// serial is also cached so [getReaderSerial] can answer right away once
+    /// the payload has arrived at least once.
+    private func readDeviceInformation(
+        result: @escaping FlutterResult
+    ) {
+        logEvent("========== readDeviceInformation ENTER ==========")
+
+        guard isConnected else {
+            logEvent(
+                "readDeviceInformation ABORTED: isConnected = false"
+            )
+
+            result(false)
+            return
+        }
+
+        logEvent(
+            "readDeviceInformation -> CALLING ReadDeviceInformation()"
+        )
+
+        BleRfidLib.shared.ReadDeviceInformation()
+
+        logEvent(
+            "readDeviceInformation -> ReadDeviceInformation() RETURNED"
+        )
+
+        result(true)
+    }
+
+    /// Returns the cached serial number of the connected reader.
+    ///
+    /// Empty string when the information has not been read yet; call
+    /// `readDeviceInformation` first to populate the cache.
+    private func getReaderSerial(
+        result: @escaping FlutterResult
+    ) {
+        let serial =
+            lastDeviceInfo[MicroSensysPlugin.readerSerialKey] ?? "N/A"
+
+        logEvent(
+            "getReaderSerial -> [\(serial)]"
+        )
+
+        result(serial)
+    }
+
+    // =========================================================================
     // Disconnect
     // =========================================================================
 
@@ -549,6 +633,16 @@ public class MicroSensysPlugin: NSObject,
         info: [String: String]
     ) {
         logEvent("SDK DEVICE INFO CALLBACK: \(info)")
+
+        lastDeviceInfo = info
+
+        logEvent(
+            "SDK DEVICE INFO serial key [\(MicroSensysPlugin.readerSerialKey)] = [\(info[MicroSensysPlugin.readerSerialKey] ?? "nil")]"
+        )
+
+        DispatchQueue.main.async {
+            self.deviceInfoStreamHandler?.eventSink?(info)
+        }
     }
 
     // =========================================================================
@@ -688,6 +782,17 @@ public class MicroSensysPlugin: NSObject,
 
         if connected {
             BleRfidLib.shared.StopDeviceScan()
+
+            // Populate the device information (serial number, battery, ...)
+            // so the UI can show it right after connecting.
+            logEvent(
+                "ShowDeviceConnectionStatus -> requesting device information"
+            )
+
+            BleRfidLib.shared.ReadDeviceInformation()
+        } else {
+            // The information belongs to the previous reader.
+            lastDeviceInfo = [:]
         }
 
         logState("CONNECTION CALLBACK AFTER UPDATE")

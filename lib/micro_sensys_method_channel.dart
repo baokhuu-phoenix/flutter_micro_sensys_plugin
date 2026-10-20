@@ -17,6 +17,9 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
   final EventChannel eventChannelIOSDevices =
       const EventChannel('micro_sensys_events_ios_devices');
 
+  final EventChannel eventChannelDeviceInfo =
+      const EventChannel('micro_sensys_events_device_info');
+
   @override
   Future<String?> getPlatformVersion() async {
     final version =
@@ -108,5 +111,21 @@ class MethodChannelMicroSensys extends MicroSensysPlatform {
         .receiveBroadcastStream()
         .cast<String>();
   }
-  
+
+  @override
+  Future<bool?> readDeviceInformation() {
+    return methodChannel.invokeMethod<bool>('readDeviceInformation');
+  }
+
+  @override
+  Future<String?> getReaderSerial() {
+    return methodChannel.invokeMethod<String>('getReaderSerial');
+  }
+
+  @override
+  Stream<Map<String, String>> iosListenDeviceInfo() {
+    return eventChannelDeviceInfo.receiveBroadcastStream().map(
+          (event) => Map<String, String>.from(event as Map),
+        );
+  }
 }
