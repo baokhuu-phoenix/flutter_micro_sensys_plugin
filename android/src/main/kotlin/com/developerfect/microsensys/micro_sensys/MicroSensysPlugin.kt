@@ -12,7 +12,6 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-/** MicroSensysPlugin */
 class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
 
     private lateinit var channel: MethodChannel
@@ -22,73 +21,118 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
     override fun onAttachedToEngine(
         flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
     ) {
+        context = flutterPluginBinding.applicationContext
         channel = MethodChannel(
             flutterPluginBinding.binaryMessenger,
             "micro_sensys"
         )
-
-        context = flutterPluginBinding.applicationContext
         channel.setMethodCallHandler(this)
     }
 
-    override fun onMethodCall(
-        call: MethodCall,
-        result: Result
-    ) {
+    override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
-
             "getPlatformVersion" -> {
-                result.success(
-                    "Android ${android.os.Build.VERSION.RELEASE} - OK-"
-                )
+                result.success("Android ${android.os.Build.VERSION.RELEASE} - OK-")
             }
 
-            "initReader" -> {
-                initReader(result, call)
-            }
-
-            "connect" -> {
-                connect(result, call)
-            }
-
-            "identifyTag" -> {
-                identifyTag(result)
-            }
-
-            "checkConnected" -> {
-                checkConnected(result)
-            }
-
-            "checkInitialized" -> {
-                checkInitialized(result)
-            }
-
-            "checkConnecting" -> {
-                checkConnecting(result)
-            }
-
-            "disConnect" -> {
-                disConnect(result)
-            }
-
-            else -> {
-                result.notImplemented()
-            }
+            "initReader" -> initReader(result, call)
+            "connect" -> connect(result, call)
+            "identifyTag" -> identifyTag(result)
+            "checkConnected" -> checkConnected(result)
+            "checkInitialized" -> checkInitialized(result)
+            "checkConnecting" -> checkConnecting(result)
+            "disConnect" -> disConnect(result)
+            else -> result.notImplemented()
         }
     }
 
     override fun onDetachedFromEngine(
         binding: FlutterPlugin.FlutterPluginBinding
     ) {
+        channel.setMethodCallHandler(null)
+        try {
+            reader?.let {
+                if (it.isConnected) {
+                    it.terminate()
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error while closing RFID reader", e)
+        } finally {
+            reader = null
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // Reader initialization
+    // -------------------------------------------------------------------------
+
+    @SuppressLint("LongLogTag")
+    private fun initReader(result: Result, call: MethodCall) {
+        try {
+            val args = call.arguments as? Map<*, *>
+            if (args == null) {
+                result.error("INVALID_ARGUMENTS", "Expected a map of reader arguments", null)
+                return
+            }
+
+            val interfaceTypeString = args["frequencyType"] as? String
+            val portTypeString = args["communicationType"] as? String
+            val deviceIdentifier = args["deviceIdentifier"] as? String
+
+            if (interfaceTypeString.isNullOrBlank()) {
+                result.error("INVALID_FREQUENCY_TYPE", "frequencyType is required", null)
+                return
+            }
+            if (portTypeString.isNullOrBlank()) {
+                result.error("INVALID_COMMUNICATION_TYPE", "communicationType is required", null)
+                return
+            }
+            if (deviceIdentifier.isNullOrBlank()) {
+                result.error("INVALID_DEVICE_IDENTIFIER", "deviceIdentifier is required", null)
+                return
+            }
+
+            Log.d(TAG, "initReader(): frequencyType=$interfaceTypeString")
+            Log.d(TAG, "initReader(): communicationType=$portTypeString")
+            Log.d(TAG, "initReader(): deviceIdentifier=$deviceIdentifier")
+
+            val newReader = RFIDFunctions(
+                context,
+                HelperFunctions().getPortTypeFromString(portTypeString)
+            )
+            newReader.protocolType = ProtocolTypeEnum.Protocol_v4
+            newReader.interfaceType =
+                HelperFunctions().getInterfaceTypeFromString(interfaceTypeString)
+
+            // Set the port name before initialize().
+            newReader.setPortName(deviceIdentifier)
+            Log.d(TAG, "initReader(): portName=${newReader.portName}")
+
+            newReader.initialize()
+            reader = newReader
+
+            result.success(true)
+        } catch (e: MssException) {
+            Log.e(TAG, "initReader(): MicroSensys exception", e)
+            result.error("INIT_READER_ERROR", e.message ?: e.toString(), e.toString())
+        } catch (e: Exception) {
+            Log.e(TAG, "initReader(): unexpected exception", e)
+            result.error("INIT_READER_ERROR", e.message ?: e.toString(), e.toString())
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // Connect
+    // -------------------------------------------------------------------------
+
     @SuppressLint("LongLogTag")
     private fun connect(result: Result, call: MethodCall) {
         try {
-            val args = call.arguments as? Map<String, Any>
+            val args = call.arguments as? Map<*, *>
+            val deviceIdentifier = args?.get("deviceIdentifier") as? String
 
-            val deviceIdentifier =
-                args?.get("deviceIdentifier") as? String
-
-            if (deviceIdentifier.isNullOrEmpty()) {
+            if (deviceIdentifier.isNullOrBlank()) {
                 result.error(
                     "CONNECT_INVALID_IDENTIFIER",
                     "deviceIdentifier is null or empty",
@@ -97,477 +141,129 @@ class MicroSensysPlugin : FlutterPlugin, MethodCallHandler {
                 return
             }
 
-            Log.d(
-                "MicroSensysPlugin",
-                "connect(): deviceIdentifier=$deviceIdentifier"
-            )
+            Log.d(TAG, "connect(): deviceIdentifier=$deviceIdentifier")
 
-            reader = RFIDFunctions(
+            val newReader = RFIDFunctions(
                 context,
                 HelperFunctions().getPortTypeFromString("BLE")
             )
-
-            reader!!.protocolType =
-                ProtocolTypeEnum.Protocol_v4
-
-            reader!!.interfaceType =
+            newReader.protocolType = ProtocolTypeEnum.Protocol_v4
+            newReader.interfaceType =
                 HelperFunctions().getInterfaceTypeFromString("UHF")
+            newReader.setPortName(deviceIdentifier)
 
-            reader!!.setPortName(deviceIdentifier)
+            Log.d(TAG, "connect(): portName=${newReader.portName}")
+            newReader.initialize()
+            reader = newReader
 
-            Log.d(
-                "MicroSensysPlugin",
-                "connect(): portName=${reader!!.portName}"
-            )
-
-            reader!!.initialize()
-
-            Log.d(
-                "MicroSensysPlugin",
-                "connect(): initialize() completed"
-            )
-
+            Log.d(TAG, "connect(): initialize() completed")
             result.success(true)
-
         } catch (e: MssException) {
-            Log.e(
-                "MicroSensysPlugin",
-                "connect(): MssException",
-                e
-            )
-
-            result.error(
-                "CONNECT_ERROR",
-                e.toString(),
-                e.toString()
-            )
-
+            Log.e(TAG, "connect(): MicroSensys exception", e)
+            result.error("CONNECT_ERROR", e.message ?: e.toString(), e.toString())
         } catch (e: Exception) {
-            Log.e(
-                "MicroSensysPlugin",
-                "connect(): Exception",
-                e
-            )
-
-            result.error(
-                "CONNECT_ERROR",
-                e.toString(),
-                e.toString()
-            )
+            Log.e(TAG, "connect(): unexpected exception", e)
+            result.error("CONNECT_ERROR", e.message ?: e.toString(), e.toString())
         }
     }
 
-    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        channel.setMethodCallHandler(null)
-    }
-
-    // =========================================================================
-    // RFID Functions
-    // =========================================================================
-
-    @SuppressLint("LongLogTag")
-    private fun initReader(
-        result: Result,
-        call: MethodCall
-    ) {
-        try {
-            val args = call.arguments as Map<String, Any>
-
-            // UHF, HF
-            val interfaceTypeString =
-                args["frequencyType"] as String
-
-            // BluetoothLE, BLE, USB
-            val portTypeString =
-                args["communicationType"] as String
-
-            // DEVICE IDENTIFIER
-            val deviceIdentifier =
-                args["deviceIdentifier"] as? String ?: "PEN"
-
-            if (deviceIdentifier.isNullOrEmpty()) {
-                result.error(
-                    "INVALID_DEVICE_IDENTIFIER",
-                    "deviceIdentifier is required",
-                    null
-                )
-                return
-            }
-
-            Log.d(
-                "MicroSensysPlugin",
-                "interfaceType=$interfaceTypeString"
-            )
-
-            Log.d(
-                "MicroSensysPlugin",
-                "portType=$portTypeString"
-            )
-
-            Log.d(
-                "MicroSensysPlugin",
-                "deviceIdentifier=$deviceIdentifier"
-            )
-
-            reader = RFIDFunctions(
-                context,
-                HelperFunctions().getPortTypeFromString(
-                    portTypeString
-                )
-            )
-
-            reader!!.protocolType =
-                ProtocolTypeEnum.Protocol_v4
-
-            reader!!.interfaceType =
-                HelperFunctions().getInterfaceTypeFromString(
-                    interfaceTypeString
-                )
-
-            // Must happen before initialize()
-            reader!!.setPortName(deviceIdentifier)
-
-            Log.d(
-                "MicroSensysPlugin",
-                "Initializing reader with portName=${reader!!.portName}"
-            )
-
-            reader!!.initialize()
-
-            result.success(true)
-
-        } catch (e: MssException) {
-
-            Log.e(
-                "MicroSensysPlugin",
-                "initReader(): MssException",
-                e
-            )
-
-            result.error(
-                "1",
-                e.toString(),
-                e.toString()
-            )
-
-        } catch (e: Exception) {
-
-            Log.e(
-                "MicroSensysPlugin",
-                "initReader(): Exception",
-                e
-            )
-
-            result.error(
-                "1",
-                e.toString(),
-                e.toString()
-            )
-        }
-    }
-
-    // =========================================================================
-    // identifyTag
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // Identify RFID tag
+    // -------------------------------------------------------------------------
 
     @SuppressLint("LongLogTag")
     private fun identifyTag(result: Result) {
-        if (reader == null) {
-            result.error(
-                "IDENTIFY_READER_NULL",
-                "Reader is not initialized",
-                null
-            )
+        val activeReader = reader
+        if (activeReader == null) {
+            result.error("IDENTIFY_READER_NULL", "Reader is not initialized", null)
             return
         }
 
-        Log.d(
-            "MicroSensysPlugin",
-            "========== identifyTag() START =========="
-        )
-
-        try {
-
-            // -----------------------------------------------------------------
-            // Check reader
-            // -----------------------------------------------------------------
-
-            if (reader == null) {
-
-                Log.e(
-                    "MicroSensysPlugin",
-                    "identifyTag(): reader == null"
-                )
-
-                result.error(
-                    "IDENTIFY_ERROR",
-                    "Reader is not initialized",
-                    null
-                )
-
-                return
-            }
-
-        if (reader?.isConnected != true) {
-            result.error(
-                "IDENTIFY_NOT_CONNECTED",
-                "Reader is not connected",
-                null
-            )
+        if (!activeReader.isConnected) {
+            result.error("IDENTIFY_NOT_CONNECTED", "Reader is not connected", null)
             return
         }
-            // -----------------------------------------------------------------
-            // Check connection
-            // -----------------------------------------------------------------
 
-            val connected =
-                reader?.isConnected == true
-
-            Log.d(
-                "MicroSensysPlugin",
-                "identifyTag(): reader.isConnected=$connected"
-            )
-
-            if (!connected) {
-
-                Log.e(
-                    "MicroSensysPlugin",
-                    "identifyTag(): Reader is NOT connected"
-                )
-
-                result.error(
-                    "IDENTIFY_NOT_CONNECTED",
-                    "Reader is not connected",
-                    null
-                )
-
-                return
-            }
+        Log.d(TAG, "identifyTag(): calling reader.identify()")
 
         try {
-            // -----------------------------------------------------------------
-            // Identify
-            // -----------------------------------------------------------------
+            // Call identify() once and return the tag ID to Flutter.
+            val uid: ByteArray? = activeReader.identify()
 
-            // IMPORTANT:
-            // Call identify() ONLY ONCE.
-            Log.d(
-                "MicroSensysPlugin",
-                "identifyTag(): calling reader.identify()"
-            )
-
-            val uid = reader!!.identify()
-            val uid: ByteArray? =
-                reader!!.identify()
-
-            Log.d(
-                "MicroSensysPlugin",
-                "identifyTag(): identify() returned ${uid?.size ?: 0} bytes"
-            )
-
-            // -----------------------------------------------------------------
-            // Check result
-            // -----------------------------------------------------------------
-
-            if (uid == null) {
-
-                Log.e(
-                    "MicroSensysPlugin",
-                    "identifyTag(): UID is NULL"
-                )
-
-                result.error(
-                    "IDENTIFY_EMPTY",
-                    "identify() returned null",
-                    null
-                )
-
+            if (uid == null || uid.isEmpty()) {
+                Log.w(TAG, "identifyTag(): identify() returned no UID")
+                result.error("IDENTIFY_EMPTY", "identify() returned no UID", null)
                 return
             }
 
-            val uidHex = HelperFunctions().bytesToHexStr(uid)
-            // -----------------------------------------------------------------
-            // Log raw bytes
-            // -----------------------------------------------------------------
+            Log.d(TAG, "identifyTag(): UID bytes=${uid.contentToString()}")
+            Log.d(TAG, "identifyTag(): UID size=${uid.size}")
 
-            Log.d(
-                "MicroSensysPlugin",
-                "identifyTag(): UID bytes=${uid.contentToString()}"
-            )
+            val rfid = HelperFunctions().bytesToHexStr(uid)
+                ?: run {
+                    Log.e(TAG, "identifyTag(): failed to convert UID to HEX")
+                    result.error("IDENTIFY_ERROR", "Failed to convert UID to HEX", null)
+                    return
+                }
 
-            Log.d(
-                "MicroSensysPlugin",
-                "identifyTag(): UID size=${uid.size}"
-            )
-
-            // -----------------------------------------------------------------
-            // Convert to HEX
-            // -----------------------------------------------------------------
-
-            val rfid =
-                HelperFunctions().bytesToHexStr(uid)
-
-            Log.d(
-                "MicroSensysPlugin",
-                "identifyTag(): RFID HEX=[$rfid]"
-            )
-
-            Log.d(
-                "MicroSensysPlugin",
-                "identifyTag(): UID/EPC=$uidHex"
-                "identifyTag(): RFID length=${rfid?.length}"
-            )
-
-            result.success(uidHex)
-            // -----------------------------------------------------------------
-            // Send RFID back to Flutter
-            // -----------------------------------------------------------------
+            Log.d(TAG, "identifyTag(): RFID HEX=[$rfid], length=${rfid.length}")
 
             result.success(rfid)
-
-            Log.d(
-                "MicroSensysPlugin",
-                "========== identifyTag() END =========="
-            )
-
         } catch (e: MssException) {
-            Log.e(
-                "MicroSensysPlugin",
-                "identifyTag(): MssException: ${e}",
-                e
-            )
-        } catch (e: MssException) {
-
-            Log.e(
-                "MicroSensysPlugin",
-                "identifyTag(): MssException class=${e.javaClass.name}"
-            )
-
-            Log.e(
-                "MicroSensysPlugin",
-                "identifyTag(): MssException message=${e.message}"
-            )
-
-            Log.e(
-                "MicroSensysPlugin",
-                "identifyTag(): MssException localizedMessage=${e.localizedMessage}"
-            )
-
-            Log.e(
-                "MicroSensysPlugin",
-                "identifyTag(): MssException toString=$e"
-            )
-
-            e.printStackTrace()
-
-            result.error(
-                "IDENTIFY_ERROR",
-                e.toString(),
-                e.toString()
-            )
-            result.error(
-                "IDENTIFY_ERROR",
-                e.message ?: e.toString(),
-                e.toString()
-            )
-
+            Log.e(TAG, "identifyTag(): MicroSensys exception", e)
+            result.error("IDENTIFY_ERROR", e.message ?: e.toString(), e.toString())
         } catch (e: Exception) {
-            Log.e(
-                "MicroSensysPlugin",
-                "identifyTag(): Exception: ${e}",
-                e
-            )
-        } catch (e: Exception) {
-
-            Log.e(
-                "MicroSensysPlugin",
-                "identifyTag(): Exception class=${e.javaClass.name}"
-            )
-
-            Log.e(
-                "MicroSensysPlugin",
-                "identifyTag(): Exception message=${e.message}"
-            )
-
-            Log.e(
-                "MicroSensysPlugin",
-                "identifyTag(): Exception localizedMessage=${e.localizedMessage}"
-            )
-
-            Log.e(
-                "MicroSensysPlugin",
-                "identifyTag(): Exception toString=$e"
-            )
-
-            e.printStackTrace()
-
-            result.error(
-                "IDENTIFY_ERROR",
-                e.toString(),
-                e.toString()
-            )
-        }
-            result.error(
-                "IDENTIFY_ERROR",
-                e.message ?: e.toString(),
-                e.toString()
-            )
+            Log.e(TAG, "identifyTag(): unexpected exception", e)
+            result.error("IDENTIFY_ERROR", e.message ?: e.toString(), e.toString())
         }
     }
 
-    // =========================================================================
-    // checkConnected
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // Reader status
+    // -------------------------------------------------------------------------
 
     private fun checkConnected(result: Result) {
-        if (reader?.isConnected == true) {
-            result.success(true)
-        } else {
-            result.success(false)
-        }
+        result.success(reader?.isConnected == true)
     }
-    // endregion checkConnected
-
-    // =========================================================================
-    // checkInitialized
-    // =========================================================================
 
     private fun checkInitialized(result: Result) {
-        if (reader != null) {
-            result.success(true)
-        } else {
-            result.success(false)
-        }
+        result.success(reader != null)
     }
 
-    // =========================================================================
-    // checkConnecting
-    // =========================================================================
-
-    // region checkInitialized
     private fun checkConnecting(result: Result) {
-        if (reader?.isConnecting == true) {
-            result.success(true)
-        } else {
-            result.success(false)
-        }
+        result.success(reader?.isConnecting == true)
     }
 
-    // =========================================================================
-    // disConnect
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // Disconnect
+    // -------------------------------------------------------------------------
 
     private fun disConnect(result: Result) {
-        if (reader != null && reader?.isConnected == true) {
-            reader?.terminate();
-        } else {
-
-            Log.d(
-                "MicroSensysPlugin",
-                "disConnect(): Reader is not connected"
-            )
-
+        val activeReader = reader
+        if (activeReader == null) {
             result.success(false)
+            return
+        }
+
+        try {
+            if (activeReader.isConnected) {
+                activeReader.terminate()
+                Log.d(TAG, "disConnect(): reader terminated")
+                result.success(true)
+            } else {
+                Log.d(TAG, "disConnect(): reader is not connected")
+                result.success(false)
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "disConnect(): error while terminating reader", e)
+            result.error("DISCONNECT_ERROR", e.message ?: e.toString(), e.toString())
+        } finally {
+            reader = null
         }
     }
+
+    private companion object {
+        const val TAG = "MicroSensysPlugin"
+    }
 }
+
