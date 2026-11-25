@@ -61,7 +61,7 @@ public class MicroSensysPlugin: NSObject,
 
         logEvent("AUTO RECONNECT: Attempting connection to \(deviceName)")
 
-        initializeSDKCallbacks()
+        //initializeSDKCallbacks()
 
         connectDevice(deviceName: deviceName) { result in
             self.logEvent("AUTO RECONNECT: connectDevice returned \(result)")
