@@ -37,7 +37,36 @@ public class MicroSensysPlugin: NSObject,
     /// Last payload received from `ReadDeviceInformation()`.
     var lastDeviceInfo: [String: String] = [:]
 
+    static let lastConnectedDeviceKey = "MicroSensys_LastConnectedDeviceName"
+
     private var lifecycleObservers: [NSObjectProtocol] = []
+
+    // =========================================================================
+    // try to reconnect automatically
+    // =========================================================================
+    private func tryReconnectSavedDevice() {
+
+        guard let deviceName = UserDefaults.standard.string(
+            forKey: MicroSensysPlugin.lastConnectedDeviceKey
+        ), !deviceName.isEmpty else {
+
+            logEvent("AUTO RECONNECT: No previously connected device")
+            return
+        }
+
+        guard !isConnected && !isConnecting else {
+            logEvent("AUTO RECONNECT: Already connected or connecting")
+            return
+        }
+
+        logEvent("AUTO RECONNECT: Attempting connection to \(deviceName)")
+
+        initializeSDKCallbacks()
+
+        connectDevice(deviceName: deviceName) { result in
+            self.logEvent("AUTO RECONNECT: connectDevice returned \(result)")
+        }
+    }
 
     // =========================================================================
     // app lifecycle logging
@@ -66,6 +95,13 @@ public class MicroSensysPlugin: NSObject,
 
                 self.logEvent(name)
                 self.logState(name)
+
+                // Trigger reconnection when the app becomes active
+                if notification == UIApplication.didBecomeActiveNotification {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.tryReconnectSavedDevice()
+                    }
+                }
             }
 
             lifecycleObservers.append(observer)
@@ -781,6 +817,19 @@ public class MicroSensysPlugin: NSObject,
         isConnecting = false
 
         if connected {
+
+            // Save the successfully connected device for automatic reconnection.
+            if let deviceName = currentDeviceName {
+                UserDefaults.standard.set(
+                    deviceName,
+                    forKey: MicroSensysPlugin.lastConnectedDeviceKey
+                )
+
+                logEvent(
+                    "AUTO RECONNECT: Saved last connected device: \(deviceName)"
+                )
+            }
+
             BleRfidLib.shared.StopDeviceScan()
 
             // Populate the device information (serial number, battery, ...)
